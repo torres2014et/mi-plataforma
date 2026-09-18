@@ -1,0 +1,116 @@
+﻿==========================================================
+  DOMICILIOS UBATE - COMO CORRER Y PROBAR LA APP (Fase 2)
+==========================================================
+
+Backend (Laravel):  C:\xampp\htdocs\mi-plataforma
+App (Flutter):      C:\xampp\htdocs\mi-plataforma\app_movil
+IP del PC (Wi-Fi):  192.168.101.12   (si cambias de red, sacala con: ipconfig)
+
+
+----------------------------------------------------------
+0) REQUISITOS
+----------------------------------------------------------
+- El telefono (Samsung) y el PC en la MISMA red Wi-Fi.
+- XAMPP con MySQL ENCENDIDO.
+
+
+----------------------------------------------------------
+1) ARRANCAR EL BACKEND (en el PC)
+----------------------------------------------------------
+Abre una terminal en la carpeta del backend y corre:
+
+    cd C:\xampp\htdocs\mi-plataforma
+    php artisan serve --host=0.0.0.0 --port=8000
+
+DEJA ESA TERMINAL ABIERTA mientras pruebas.
+(El  --host=0.0.0.0  es lo que permite que el telefono lo vea.
+ Sin eso, solo lo ve el PC.)
+
+Prueba rapida en el navegador del PC:  http://localhost:8000
+(debe abrir la web del sistema)
+
+
+----------------------------------------------------------
+2) INSTALAR LA APP EN EL SAMSUNG
+----------------------------------------------------------
+- Conecta el telefono por USB con DEPURACION USB activada.
+- Desde la carpeta de la app:
+
+    cd C:\xampp\htdocs\mi-plataforma\app_movil
+    flutter run
+
+Espera a que compile e instale.
+(Si  flutter run  se queda "colgado" despues de instalar,
+ la app YA quedo instalada: abrela desde el telefono.)
+
+Si cambiaste de red Wi-Fi, primero actualiza la IP en:
+    lib\core\config.dart   ->   ApiConfig.baseUrl
+y vuelve a correr  flutter run.
+
+
+----------------------------------------------------------
+3) PRUEBA RAPIDA DE CONEXION (1 minuto)
+----------------------------------------------------------
+En la app: LOGIN con
+    cliente@test.com   /   password
+
+Si ves la lista de restaurantes reales (El Pollo Don Luis,
+plapizza) => la app YA esta conectada al backend.
+
+Si sale error de red:
+- revisa que el telefono este en la misma Wi-Fi
+- revisa que el server este corriendo con --host=0.0.0.0
+
+
+----------------------------------------------------------
+4) FLUJO COMPLETO (los 3 roles)
+----------------------------------------------------------
+Con UN solo telefono vas cambiando de cuenta.
+Con 3 personas/3 equipos, cada quien hace su parte.
+
+USUARIOS DE PRUEBA (contrasena: password):
+    cliente@test.com        -> cliente   (app)
+    domiciliario@test.com   -> domi      (app)
+    vendedor@test.com       -> restaurante (NAVEGADOR web)
+    admin@test.com          -> admin     (web)
+
+PASOS:
+1. CLIENTE (app): entra a El Pollo Don Luis -> pide
+   "Pollo asado entero" -> carrito -> checkout
+   (fija la ubicacion en el mapa) -> CREAR PEDIDO.
+
+2. DOMICILIARIO (app): cierra sesion y entra con
+   domiciliario@test.com -> "Pedidos disponibles" ->
+   aparece el pedido -> ACEPTAR.
+
+3. RESTAURANTE (navegador del PC): abre
+   http://localhost:8000  -> entra con vendedor@test.com ->
+   Pedidos -> Confirmar -> Preparar -> Enviar a domicilio
+   (lo pasa a "en camino").
+
+4. CLIENTE (app): vuelve a entrar como cliente@test.com,
+   abre el pedido: muestra el QR y el CODIGO de entrega.
+   Anota el codigo.
+
+5. DOMICILIARIO (app): entra como domiciliario@test.com,
+   abre su pedido activo -> "Confirmar entrega" ->
+   "Escribir codigo manualmente" -> teclea el codigo ->
+   ENTREGADO.  LISTO.
+
+
+----------------------------------------------------------
+NOTAS
+----------------------------------------------------------
+- IMPORTANTE: el backend real NO cocina solo (la version de
+  datos falsos lo simulaba). Quien avanza la cocina
+  (confirmar/preparar/enviar) es el RESTAURANTE por la WEB.
+  El domiciliario solo ACEPTA y CONFIRMA la entrega (QR).
+
+- El restaurante de prueba ya tiene un producto cargado.
+  Para mas, agregalos en la web (rol vendedor -> Productos).
+
+- Para volver a DATOS FALSOS (sin backend), en
+  lib\providers\services_providers.dart  cambia los
+  Api... por los Fake...  (nada mas).
+
+- Mas detalle tecnico en:  C:\xampp\htdocs\mi-plataforma\app_movil\FASE2.md

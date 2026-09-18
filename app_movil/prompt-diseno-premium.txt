@@ -1,0 +1,162 @@
+================================================================================
+PROMPT: Sistema de pulido visual profesional (cualquier proyecto)
+================================================================================
+
+Copia este prompt al inicio de tu sesion cuando quieras elevar la UI de un
+proyecto al nivel Rappi / Uber Eats / Linear / Stripe usando solo widgets o
+componentes nativos del stack, sin agregar dependencias innecesarias.
+
+Funciona en Flutter, React Native, SwiftUI, Jetpack Compose, etc. Los principios
+son los mismos, solo cambia la sintaxis.
+
+================================================================================
+INICIO DEL PROMPT (copiar desde aqui)
+================================================================================
+
+# Mision
+
+Pulir la UI de este proyecto al nivel de las apps top del mercado (Rappi, Uber
+Eats, Linear, Stripe, Vercel) usando solo widgets/componentes nativos del stack
+— sin agregar dependencias innecesarias.
+
+# Flujo de trabajo
+
+1. ANTES de tocar codigo, hazme dos preguntas:
+   a) "¿Que pantalla puliremos primero?" — Lista 3-5 opciones del proyecto con
+      la tecnica concreta que aplicarias a cada una en una linea.
+   b) "¿Que intensidad de cambio?" — Tres opciones:
+      - PULIDO (mantener layout): mismo esqueleto, mejor tipografia, sombras,
+        gradientes, animaciones, haptics. Riesgo bajo.
+      - REDISEÑO (cambiar estructura): reorganizar para parecerse al patron
+        ganador de la app referencia. Riesgo medio.
+      - SHOWCASE (sin limites): hero animations, parallax, blurs, grain,
+        microinteracciones por todos lados. Riesgo alto, para portafolio.
+
+2. Crea una lista de tareas (6-8 atomicas, una por bloque visual). Marca
+   in_progress al empezar, completed al terminar. No batchear.
+
+3. Antes de editar una pantalla, leela ENTERA + los widgets compartidos que use
+   (botones, tarjetas, fondos). Si encuentras un patron ya pulido en otra
+   pantalla, reusalo en vez de inventar uno nuevo.
+
+4. Al final ejecuta el linter + tests del proyecto. Solo cuando ambos pasen,
+   relanza la app en dispositivo y resume:
+   - Que cambio, agrupado por bloque visual (no por archivo).
+   - Que efecto visual ve el usuario al abrir la app.
+   - Que probar en orden.
+
+# Lenguaje visual (aplicar TODO esto, no solo lo obvio)
+
+## Tipografia
+- letterSpacing -0.2 a -0.4 en titulos para densidad premium.
+- letterSpacing +0.8 en EYEBROWS (subtitulos en mayusculas pequeñas, 11px,
+  fontWeight 700, color textMuted). Sustituyen a titulos grises medianos.
+- height 1.3-1.4 en parrafos para respiracion entre lineas.
+- Pesos: w800 para estado activo, w600 para inactivo. Nunca w400 en CTAs.
+
+## Sombras (depth realista, NO un BoxShadow plano)
+SIEMPRE doble capa:
+  Sombra 1 (glow del color): brand color al 35-45% alpha, blurRadius 14-24,
+    offset Y 6-12
+  Sombra 2 (drop oscura fina): black al 25-30% alpha, blurRadius 6, offset Y 2
+Aplicar en: tarjetas levantadas, CTAs, marcadores del mapa, miniaturas, modales.
+
+## Gradientes
+- Botones y elementos destacados: gradiente del color de marca de tono medio a
+  tono oscuro (ej. naranja c400 → c600). NUNCA color solido en CTAs.
+- Sobre fotos: gradiente 3 stops para legibilidad — transparente arriba (0%),
+  semi al medio (0x33000000 al 45%), denso abajo (0x99-CC000000 al 100%).
+- Fondos: mesh gradient con 4-5 blobs blureados (sigma 80-100) que derivan con
+  senos/cosenos a velocidades distintas. Mas cinematografico que un color solido.
+
+## Glassmorphism (BackdropFilter / efecto vidrio)
+Para botones/badges que flotan sobre fotos o mapas:
+  BackdropFilter blur sigma 8-12
+  + fondo color al 35-45% alpha
+  + borde blanco translucido al 14-18% alpha (1px)
+Mas premium que el "fondo negro plano".
+
+## Animaciones (todas, no opcionales)
+- Tap en tarjetas: AnimatedScale 0.97-0.93, duration 110ms, Curves.easeOut.
+- Cambios de seleccion: AnimatedContainer 220ms, Curves.easeOut.
+- Contadores que cambian: AnimatedSwitcher con ScaleTransition + FadeTransition
+  220ms.
+- Entrada de listas: fade + slide Y 16px una sola vez al montar, escalonado
+  60ms por item (tope 6).
+- Hero animations entre pantallas siempre que haya un elemento compartido.
+
+## Haptics (uno por interaccion significativa)
+- selectionClick: cambiar entre opciones (chips de categoria, metodos de pago).
+- lightImpact: tap generico en tarjetas y botones secundarios.
+- mediumImpact: acciones que cambian estado importante (abrir mapa, ver
+  carrito, rechazar pedido).
+- heavyImpact: errores, validaciones fallidas.
+
+## Pildoras de estado
+Color del tipo (success/error/warning/info) al 12-15% alpha como fondo, borde
+del mismo color al 35% alpha, icono y texto en color solido. fontWeight 700.
+
+## Skeletons (NO spinners)
+Para cargas, dibujar la silueta exacta con cajas que tienen un brillo que las
+recorre (shimmer). Nunca usar CircularProgressIndicator para listas o tarjetas.
+
+## Snackbars
+Nunca usar SnackBar plano. Helper que devuelva:
+- behavior: floating
+- background: surface (no negro)
+- shape: RoundedRectangleBorder con borde de color (success/error/info)
+- contenido: icono del tipo + texto + accion opcional (Deshacer / Reintentar)
+
+# Reglas de oro
+
+- NO inventar widgets nuevos cuando hay uno reutilizable. Buscar primero.
+- NO añadir dependencias salvo que sean inevitables. Plantear alternativas con
+  widgets nativos primero (BackdropFilter > package de glass, CustomPainter >
+  package de particulas, ImageFilter.blur > package de fondos).
+- NO usar emojis en codigo a menos que el usuario los pida explicitamente. Pero
+  SI se pueden usar en strings que muestra la UI si encajan (verde check en
+  snackbars de exito, etc.).
+- NO escribir comentarios obvios. Solo cuando el "por que" no es evidente del
+  codigo (constraint oculto, workaround, decision de diseño).
+- TOCAR EL ARCHIVO MENOS POSIBLE: editar quirurgicamente, no reescribir bloques
+  enteros. Si el linter llora por un Color que no es const, simplemente quita
+  el const — no rediseñes la seccion.
+
+# Comunicacion con el usuario
+
+- Antes del primer tool call de cada paso, dile en UNA frase que vas a hacer.
+- Al terminar un bloque, dale el resumen orientado al efecto visual (no al
+  archivo). Ej: "El header ahora hace zoom al overscroll, los badges son
+  vidrio real con blur, y el contador del carrito se anima al cambiar."
+- Si pruebas en dispositivo: dale recorrido sugerido por pantalla con QUE
+  tocar para sentir cada cambio.
+- Si algo se rompe en runtime (no en analyze), lee los logs antes de editar —
+  los errores de constraints infinitos, render boxes sin tamaño, etc. tienen
+  causa especifica que debe arreglarse en raiz, no parchearse.
+
+# Referencias visuales por estilo (para inspiracion)
+- Mobbin (mobbin.com): flujos reales de apps top
+- Dribbble + Behance: conceptos premium
+- Vercel/Linear/Cluely: minimalismo tecnico (grid, spotlight)
+- Stripe/Apple: gradientes + mesh + silk waves
+- Rappi/iFood/Uber Eats: patron delivery (parallax, badges, hero)
+- Cosmos (cosmos.so): tableros visuales curados
+
+================================================================================
+FIN DEL PROMPT (copiar hasta aqui)
+================================================================================
+
+# Como usarlo
+
+1. Al empezar una sesion de UI en CUALQUIER proyecto, pega el bloque del prompt
+   (lo que esta entre los marcadores INICIO/FIN) como tu primer mensaje al
+   asistente.
+
+2. El asistente te hara dos preguntas (que pantalla + que intensidad), tu
+   eliges, y arranca a trabajar sin que tengas que micro-explicar cada cosa.
+
+3. Si quieres que aplique en todas tus sesiones automaticamente sin pegarlo
+   cada vez, pegalo en tu CLAUDE.md global (~/.claude/CLAUDE.md o el equivalente
+   en tu OS).
+
+================================================================================
