@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "808671922010",
+    "project_id": "domicilios-ubate",
+    "storage_bucket": "domicilios-ubate.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808671922010:android:f5f6b0d9e69e2f8f4c9563",
+        "android_client_info": {
+          "package_name": "com.ubate.domicilios_ubate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5QHkI0i4qdk5oayPIxymNitKaslIMwNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

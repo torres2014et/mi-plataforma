@@ -1,0 +1,51 @@
+*.log
+.DS_Store
+.env
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+/.fleet
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+Homestead.json
+Homestead.yaml
+Thumbs.db
+
+# --- Exclusiones propias del proyecto (acordadas con el equipo) ---
+
+# Config local de Claude Code (no forma parte del código del proyecto)
+/.claude
+
+# Documentación interna de trabajo (no se publica en GitHub)
+/CLAUDE.md
+/PROMPT_APP_FLUTTER.md
+/documentacion-pgc
+/app_movil/CLAUDE.md
+/app_movil/FASE2.md
+/app_movil/FASE3.md
+/app_movil/FASE4.md
+
+# Capturas de pantalla y archivos sueltos de trabajo en la raíz
+/mockasts
+/Captura de pantalla*.png
+/asi se ve.png
+/eso sale.png
+/esta.png
+/foto_autores.png
+/poster.html
+/server.log
+/Laravel
+/Reverb
+/apunta
