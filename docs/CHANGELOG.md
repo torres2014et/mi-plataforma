@@ -10,6 +10,13 @@ Registro de actualizaciones subidas a este repositorio. Formato: fecha, resumen 
 - Se reemplazó el `README.md` genérico de Laravel por uno propio del proyecto, con enlaces a ambos manuales.
 - Se ajustó `.gitignore` para excluir del repositorio: `.env`, `CLAUDE.md`, la carpeta `.claude/`, `documentacion-pgc/` (trabajo de grado académico), los `FASE2.md`/`FASE3.md`/`FASE4.md`/`CLAUDE.md` internos de `app_movil/`, y capturas de pantalla o notas sueltas de la raíz (`Laravel`, `Reverb`, `apunta`, `poster.html`, `server.log`, `mockasts/`).
 - Se verificó que ningún secreto o credencial real quedó incluido en el commit.
+- Se agregó `docs/CHANGELOG.md` (este archivo) para llevar el historial de cambios versionado.
+
+## 2026-09-18 — Preparación para desplegar en Railway
+
+- Se agregó un `Dockerfile` en la raíz, pensado para reutilizarse en 3 servicios de Railway (web, cola de trabajos, Reverb/WebSockets) cambiando solo el comando de inicio de cada uno.
+- Se agregó `.dockerignore` para no incluir en la imagen archivos que no debe (`.env`, documentación interna, `node_modules`, `vendor`, capturas de pantalla, etc.).
+- Se creó [`docs/DEPLOY_RAILWAY.md`](DEPLOY_RAILWAY.md) — guía completa: arquitectura de los 3 servicios, variables de entorno necesarias y pasos exactos en el dashboard de Railway, incluyendo la advertencia sobre el almacenamiento de imágenes (no persiste entre despliegues sin un Volume).
 
 <!--
 Cómo agregar una entrada nueva:
