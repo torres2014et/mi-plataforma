@@ -12,6 +12,7 @@ Dos frontends comparten este mismo backend:
 
 - 📘 [Manual del Programador](docs/MANUAL_PROGRAMADOR.md) — instalación, arquitectura, comandos y convenciones del proyecto.
 - 📗 [Manual de Usuario](docs/MANUAL_USUARIO.md) — cómo usar la plataforma según cada rol (cliente, restaurante, domiciliario, admin).
+- 📝 [Historial de cambios](docs/CHANGELOG.md) — registro de actualizaciones subidas al repositorio.
 
 ## Inicio rápido
 
