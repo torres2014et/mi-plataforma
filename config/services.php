@@ -58,4 +58,17 @@ return [
         ],
     ],
 
+    // Chatbot IA — Gemini 2.5 Flash (Google AI Studio). Mientras GEMINI_API_KEY
+    // esté vacío, GeminiService responde con un mensaje de "no disponible" y no
+    // rompe nada (mismo patrón de falla suave que 'fcm' arriba).
+    'gemini' => [
+        'key'   => env('GEMINI_API_KEY'),
+        // 'gemini-2.5-flash' fue descontinuado por Google para API keys nuevas
+        // (ver aviso 404 de la propia API). 'gemini-3.6-flash' respondía 503
+        // "high demand" de forma consistente en pruebas; 'gemini-flash-latest'
+        // es el alias estable que Google mantiene siempre apuntando al modelo
+        // flash vigente (resolvió a gemini-3.8-flash en pruebas, ~1.5s).
+        'model' => env('GEMINI_MODEL', 'gemini-flash-latest'),
+    ],
+
 ];
