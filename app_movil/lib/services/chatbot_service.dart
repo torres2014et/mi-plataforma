@@ -10,5 +10,13 @@ abstract interface class ChatbotService {
   /// [restauranteId] es opcional: si se manda (por ejemplo, viendo el menú de
   /// un restaurante), el backend inyecta ese menú completo como contexto; si
   /// no, usa un resumen de los restaurantes activos.
-  Future<String> enviarMensaje(String mensaje, {int? restauranteId});
+  ///
+  /// [historial] son los turnos previos de la conversación (`rol`: `user` o
+  /// `bot`, `texto`) para que el bot entienda preguntas de seguimiento; el
+  /// backend usa solo los últimos y no guarda nada.
+  Future<String> enviarMensaje(
+    String mensaje, {
+    int? restauranteId,
+    List<({String rol, String texto})> historial = const [],
+  });
 }

@@ -10,6 +10,8 @@ Registro de actualizaciones subidas a este repositorio. Formato: fecha, resumen 
 - **Memoria de conversación** (`historial`, opcional) para preguntas de seguimiento, y **preguntas sugeridas** en el widget web.
 - **System prompt reescrito** (texto plano, sin Markdown, reglas de horarios/domicilio/pedidos, explicación de cómo funciona la app) y **movido a `resources/chatbot/system-prompt.md`**: antes vivía en `storage/app/`, que está en `.gitignore`, así que no llegaba a GitHub ni a un despliegue.
 - **Resistencia a fallos:** cadena de modelos de respaldo (la cuota gratuita de Google es por modelo y por día), reintentos solo ante 5xx/timeout, salto inmediato ante 429, tope de ~24 s por mensaje y caché de 2 min para preguntas idénticas.
+- **App móvil (Flutter):** el chat ahora también envía el historial de la conversación y muestra las mismas preguntas sugeridas (`chatbot_flotante.dart`, `ChatbotService`/`ApiChatbotService`); los horarios y los pedidos del usuario ya llegaban por el backend compartido.
+- **Fix:** `GeminiService` ahora une todas las partes de texto de la respuesta de Gemini (antes leía solo la primera y podía devolver respuestas cortadas) y registra en el log si termina por un motivo distinto de `STOP`.
 - La API key viaja por header (`x-goog-api-key`) y ya no queda escrita en `laravel.log` cuando hay errores.
 - Documentación actualizada: `MANUAL_PROGRAMADOR.md` (sección 11) y `MANUAL_USUARIO.md` (sección 7).
 

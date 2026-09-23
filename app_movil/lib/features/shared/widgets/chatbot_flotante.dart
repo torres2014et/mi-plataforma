@@ -83,11 +83,17 @@ class _ChatbotSheetState extends ConsumerState<_ChatbotSheet> {
   final List<_Mensaje> _mensajes = [
     const _Mensaje(
       '¡Hola! Soy el asistente de Mi Plataforma. '
-      'Pregúntame sobre restaurantes, menús o precios 🍔',
+      'Pregúntame sobre restaurantes, menús, precios, horarios o tus pedidos 🍔',
       esUsuario: false,
     ),
   ];
   bool _cargando = false;
+
+  static const _sugerencias = [
+    '¿Qué restaurantes están abiertos ahora?',
+    '¿Cuáles tienen domicilio gratis?',
+    '¿Cómo va mi pedido?',
+  ];
 
   @override
   void dispose() {
@@ -107,9 +113,19 @@ class _ChatbotSheetState extends ConsumerState<_ChatbotSheet> {
     });
   }
 
-  Future<void> _enviar() async {
-    final texto = _controller.text.trim();
+  Future<void> _enviar([String? textoRapido]) async {
+    final texto = (textoRapido ?? _controller.text).trim();
     if (texto.isEmpty || _cargando) return;
+
+    // Turnos previos (sin el saludo inicial ni los errores locales) para que
+    // el bot entienda preguntas de seguimiento. El backend usa los últimos 8.
+    final previos = _mensajes.skip(1).toList();
+    final recientes =
+        previos.length > 8 ? previos.sublist(previos.length - 8) : previos;
+    final historial = [
+      for (final m in recientes)
+        (rol: m.esUsuario ? 'user' : 'bot', texto: m.texto),
+    ];
 
     setState(() {
       _mensajes.add(_Mensaje(texto, esUsuario: true));
@@ -121,7 +137,8 @@ class _ChatbotSheetState extends ConsumerState<_ChatbotSheet> {
     try {
       final respuesta = await ref
           .read(chatbotServiceProvider)
-          .enviarMensaje(texto, restauranteId: widget.restauranteId);
+          .enviarMensaje(texto,
+              restauranteId: widget.restauranteId, historial: historial);
       if (!mounted) return;
       setState(() => _mensajes.add(_Mensaje(respuesta, esUsuario: false)));
     } catch (_) {
@@ -182,12 +199,38 @@ class _ChatbotSheetState extends ConsumerState<_ChatbotSheet> {
               child: ListView.builder(
                 controller: _scrollController,
                 padding: const EdgeInsets.all(14),
-                itemCount: _mensajes.length + (_cargando ? 1 : 0),
+                itemCount: _mensajes.length + 1,
                 itemBuilder: (context, i) {
-                  if (i == _mensajes.length) {
-                    return const _BurbujaEscribiendo();
+                  if (i < _mensajes.length) {
+                    return _Burbuja(mensaje: _mensajes[i]);
                   }
-                  return _Burbuja(mensaje: _mensajes[i]);
+                  // Último elemento: sugerencias (solo sin conversación) o "escribiendo".
+                  if (_cargando) return const _BurbujaEscribiendo();
+                  if (_mensajes.length == 1) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          for (final s in _sugerencias)
+                            ActionChip(
+                              label: Text(s),
+                              onPressed: () => _enviar(s),
+                              backgroundColor:
+                                  Brand.c500.withValues(alpha: 0.12),
+                              side: BorderSide(
+                                  color: Brand.c500.withValues(alpha: 0.35)),
+                              labelStyle: const TextStyle(
+                                  color: Brand.c400,
+                                  fontSize: 12.5,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                        ],
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
                 },
               ),
             ),

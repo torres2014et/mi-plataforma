@@ -12,11 +12,19 @@ class ApiChatbotService implements ChatbotService {
   ApiChatbotService(this._api);
 
   @override
-  Future<String> enviarMensaje(String mensaje, {int? restauranteId}) async {
+  Future<String> enviarMensaje(
+    String mensaje, {
+    int? restauranteId,
+    List<({String rol, String texto})> historial = const [],
+  }) async {
     try {
       final res = await _api.dio.post('/chatbot/mensaje', data: {
         'mensaje': mensaje,
         if (restauranteId != null) 'restaurante_id': restauranteId,
+        if (historial.isNotEmpty)
+          'historial': [
+            for (final t in historial) {'rol': t.rol, 'texto': t.texto},
+          ],
       });
       return res.data['respuesta'] as String;
     } catch (e) {
