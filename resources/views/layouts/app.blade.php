@@ -11,6 +11,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
+    @include('partials.fondo-ambiente')
+
     <div class="min-h-screen">
         @include('layouts.navigation')
 
@@ -22,7 +24,7 @@
             </header>
         @endisset
 
-        <main>
+        <main class="page-enter">
             {{ $slot }}
         </main>
     </div>

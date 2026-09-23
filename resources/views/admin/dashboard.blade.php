@@ -75,7 +75,7 @@
             {{-- Stat cards --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
-                <div class="stat-card admin-reveal bg-gradient-to-br from-blue-600 to-blue-800" style="animation-delay:0ms">
+                <div class="stat-card card-interactive admin-reveal bg-gradient-to-br from-blue-600 to-blue-800" style="animation-delay:0ms">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
                     <div class="w-10 h-10 bg-white/15 rounded-xl flex items-center justify-center mb-4 border border-white/10">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white/90">
@@ -87,7 +87,7 @@
                     <p class="text-white/40 text-xs mt-2">Registros en la plataforma</p>
                 </div>
 
-                <div class="stat-card admin-reveal bg-gradient-to-br from-brand-600 to-brand-800" style="animation-delay:80ms">
+                <div class="stat-card card-interactive admin-reveal bg-gradient-to-br from-brand-600 to-brand-800" style="animation-delay:80ms">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
                     <div class="w-10 h-10 bg-white/15 rounded-xl flex items-center justify-center mb-4 border border-white/10">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white/90">
@@ -99,7 +99,7 @@
                     <p class="text-white/40 text-xs mt-2">Negocios registrados</p>
                 </div>
 
-                <div class="stat-card admin-reveal bg-gradient-to-br from-violet-600 to-violet-800" style="animation-delay:160ms">
+                <div class="stat-card card-interactive admin-reveal bg-gradient-to-br from-violet-600 to-violet-800" style="animation-delay:160ms">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
                     <div class="w-10 h-10 bg-white/15 rounded-xl flex items-center justify-center mb-4 border border-white/10">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white/90">
@@ -113,7 +113,7 @@
                     </p>
                 </div>
 
-                <div class="stat-card admin-reveal bg-gradient-to-br from-emerald-600 to-emerald-800" style="animation-delay:240ms">
+                <div class="stat-card card-interactive admin-reveal bg-gradient-to-br from-emerald-600 to-emerald-800" style="animation-delay:240ms">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
                     <div class="w-10 h-10 bg-white/15 rounded-xl flex items-center justify-center mb-4 border border-white/10">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-white/90">

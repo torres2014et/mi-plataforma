@@ -158,7 +158,7 @@
                             <div class="space-y-3">
                                 @foreach($items as $producto)
                                     @php $delay = min($idx * 55, 450); $idx++; @endphp
-                                    <div class="card menu-card menu-reveal p-4 flex items-center gap-4 hover:-translate-y-0.5 group relative cursor-pointer"
+                                    <div class="card-interactive menu-card menu-reveal p-4 flex items-center gap-4 hover:-translate-y-0.5 group relative cursor-pointer"
                                          @click="abrirSheet({ id: {{ $producto->id }}, nombre: {{ json_encode($producto->nombre) }}, precio: {{ $producto->precio }}, descripcion: {{ json_encode($producto->descripcion ?? '') }}, imagen: {{ json_encode($producto->fotoUrl() ?? '') }} })"
                                          :class="justAdded === {{ $producto->id }} ? 'ring-2 ring-brand-500/60 shadow-brand' : ''"
                                          style="animation-delay: {{ $delay }}ms">
