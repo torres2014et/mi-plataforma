@@ -10,7 +10,8 @@ Guía de uso de la plataforma de domicilios de comida rápida para Ubaté, Cundi
 4. [Manual del Restaurante](#4-manual-del-restaurante)
 5. [Manual del Domiciliario](#5-manual-del-domiciliario)
 6. [Manual del Administrador](#6-manual-del-administrador)
-7. [Preguntas frecuentes](#7-preguntas-frecuentes)
+7. [Asistente virtual (chatbot)](#7-asistente-virtual-chatbot)
+8. [Preguntas frecuentes](#8-preguntas-frecuentes)
 
 ---
 
@@ -133,7 +134,18 @@ En el dashboard de administrador:
 
 ---
 
-## 7. Preguntas frecuentes
+## 7. Asistente virtual (chatbot)
+
+Disponible en la esquina inferior derecha, en web y app móvil, para los 4 roles. Tócalo o haz clic para abrir el chat.
+
+- Responde preguntas sobre **restaurantes, menús, precios y funcionamiento de la plataforma**, usando la información real del catálogo.
+- Si preguntas algo fuera de ese tema, te lo dice amablemente y te redirige a lo que sí puede ayudarte.
+- La conversación **no se guarda** — si cierras el chat o recargas la página, el historial se pierde.
+- Si el asistente no está disponible en ese momento, el resto de la plataforma sigue funcionando con normalidad.
+
+---
+
+## 8. Preguntas frecuentes
 
 **¿Por qué no veo el mapa de seguimiento apenas hago el pedido?**
 El mapa con la ruta del domiciliario solo aparece cuando el pedido pasa a "En camino". Antes de eso solo se muestra tu dirección de entrega.
