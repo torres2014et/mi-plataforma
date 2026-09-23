@@ -267,7 +267,7 @@ class _CategoriaChips extends ConsumerWidget {
   }
 }
 
-/// Placeholders con shimmer mientras cargan los restaurantes (estilo Rappi).
+/// Placeholders con shimmer mientras cargan los restaurantes (estilo apps de delivery premium).
 class _SkeletonRestaurantes extends StatelessWidget {
   const _SkeletonRestaurantes();
 

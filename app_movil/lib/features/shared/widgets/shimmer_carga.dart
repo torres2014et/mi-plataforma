@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 
 /// Caja con efecto **shimmer**: un brillo que recorre un placeholder gris,
-/// estilo Rappi/iFood, para los estados de carga. Cada caja anima sola; varias
+/// estilo apps de delivery premium, para los estados de carga. Cada caja anima sola; varias
 /// dentro del mismo árbol son baratas (solo pintan un gradiente que se desliza).
 class ShimmerCaja extends StatefulWidget {
   final double? width;

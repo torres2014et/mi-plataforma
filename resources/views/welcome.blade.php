@@ -600,7 +600,7 @@
 
                 {{-- Floating savings badge --}}
                 <div class="absolute -top-5 -left-5 bg-brand-500 rounded-2xl shadow-brand px-4 py-3 text-white">
-                    <p class="text-[11px] font-semibold opacity-75">Ahorras vs. Rappi</p>
+                    <p class="text-[11px] font-semibold opacity-75">Ahorras vs. apps nacionales</p>
                     <p class="text-2xl font-black leading-tight">~30%</p>
                     <p class="text-[11px] opacity-60">en comisiones</p>
                 </div>

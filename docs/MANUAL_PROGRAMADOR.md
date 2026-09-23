@@ -6,7 +6,7 @@ Guía técnica para levantar, entender y extender la plataforma de domicilios de
 
 ## 1. Qué es el proyecto
 
-Plataforma que reemplaza a Rappi/iFood para restaurantes locales de Ubaté: sin altas comisiones, con control directo de catálogo, pedidos y logística.
+Alternativa local a las apps de domicilios nacionales para restaurantes locales de Ubaté: sin altas comisiones, con control directo de catálogo, pedidos y logística.
 
 **Roles del sistema:**
 - **cliente** — navega restaurantes, hace pedidos, sigue la entrega en un mapa en tiempo real.

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'app_colors.dart';
 
-/// Tema oscuro de la app, igualado a la web (premium estilo Rappi/iFood):
+/// Tema oscuro de la app, igualado a la web (premium estilo apps de delivery):
 /// fondo casi negro, superficies zinc, acentos naranja, esquinas 12–16,
 /// bordes translúcidos y glow naranja sutil en los elementos de marca.
 ///

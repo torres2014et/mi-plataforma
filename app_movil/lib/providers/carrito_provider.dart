@@ -40,7 +40,7 @@ class CarritoItem {
       );
 }
 
-/// Estado del carrito. Está atado a UN restaurante (como en Rappi/iFood):
+/// Estado del carrito. Está atado a UN restaurante (patrón estándar de apps de delivery):
 /// si agregas algo de otro restaurante, el carrito se reinicia.
 class CarritoState {
   final int? restauranteId;
