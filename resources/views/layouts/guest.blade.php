@@ -9,8 +9,68 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        /* Splash del scooter (una sola vez por sesión de navegador — ver script abajo). */
+        #mp-splash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#0D0D0F;overflow:hidden;transition:opacity .45s ease;}
+        html.mp-no-splash #mp-splash{display:none!important;}
+        #mp-splash .orb{position:absolute;border-radius:9999px;filter:blur(60px);animation:mpOrb 9s ease-in-out infinite;}
+        #mp-splash .orb-a{top:-6rem;left:-6rem;width:18rem;height:18rem;background:rgba(242,92,46,.22);}
+        #mp-splash .orb-b{bottom:-6rem;right:-4rem;width:20rem;height:20rem;background:rgba(249,115,22,.12);animation-duration:13s;animation-direction:reverse;}
+        @keyframes mpOrb{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-20px) scale(1.08)}66%{transform:translate(-20px,12px) scale(.93)}}
+        #mp-splash .mp-linea{position:absolute;height:3px;border-radius:9999px;background:linear-gradient(90deg,transparent,rgba(242,92,46,.7),transparent);opacity:0;animation:mpLinea 1.1s ease-out forwards;}
+        @keyframes mpLinea{0%{opacity:0;transform:translateX(30px) scaleX(.3)}25%{opacity:1}100%{opacity:0;transform:translateX(-70px) scaleX(1)}}
+        #mp-splash .mp-scooter{font-size:4rem;line-height:1;display:inline-block;transform:translateX(-160px) scale(.8) rotate(-8deg);opacity:0;animation:mpScooterIn 1s cubic-bezier(.22,1.4,.36,1) forwards;filter:drop-shadow(0 10px 18px rgba(242,92,46,.35));}
+        @keyframes mpScooterIn{0%{transform:translateX(-160px) scale(.8) rotate(-8deg);opacity:0}55%{transform:translateX(12px) scale(1.06) rotate(0);opacity:1}75%{transform:translateX(-6px) scale(1)}100%{transform:translateX(0) scale(1)}}
+        #mp-splash .mp-fade{opacity:0;transform:translateY(10px);animation:mpFadeUp .6s ease-out forwards;}
+        @keyframes mpFadeUp{to{opacity:1;transform:translateY(0)}}
+    </style>
+    <script>
+        // Evita el "flash" del splash en páginas repetidas dentro de la misma
+        // pestaña: si ya se mostró en esta sesión, lo ocultamos por CSS antes
+        // de pintar (ver clase `mp-no-splash` arriba).
+        try {
+            if (sessionStorage.getItem('mp_splash_shown')) {
+                document.documentElement.classList.add('mp-no-splash');
+            }
+        } catch (e) {}
+    </script>
 </head>
 <body class="font-sans antialiased">
+
+{{-- Splash tipo app (scooter acelerando), una sola vez por sesión del navegador —
+     misma idea que `app_movil/lib/features/splash/splash_screen.dart`. --}}
+<div id="mp-splash">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="relative flex flex-col items-center">
+        <div class="relative h-20 flex items-center justify-center">
+            <div class="mp-linea" style="width:70px;top:38%;animation-delay:.05s"></div>
+            <div class="mp-linea" style="width:50px;top:55%;animation-delay:.15s"></div>
+            <div class="mp-linea" style="width:38px;top:68%;animation-delay:.25s"></div>
+            <span class="mp-scooter">🛵</span>
+        </div>
+        <div class="mp-fade mt-5" style="animation-delay:.95s">
+            <x-application-logo class="w-14 h-14 mx-auto" />
+        </div>
+        <p class="mp-fade mt-4 text-white font-black text-xl" style="animation-delay:1.25s">Mi Plataforma</p>
+        <p class="mp-fade mt-1 text-brand-500 text-xs tracking-[0.2em] font-bold" style="animation-delay:1.4s">UBATÉ · DELIVERY</p>
+    </div>
+</div>
+<script>
+    (function () {
+        var el = document.getElementById('mp-splash');
+        if (!el) return;
+        var yaVisto = false;
+        try { yaVisto = !!sessionStorage.getItem('mp_splash_shown'); } catch (e) {}
+        if (yaVisto) { el.remove(); return; }
+        try { sessionStorage.setItem('mp_splash_shown', '1'); } catch (e) {}
+        setTimeout(function () {
+            el.style.opacity = '0';
+            setTimeout(function () { el.remove(); }, 450);
+        }, 2100);
+    })();
+</script>
+
 <div class="min-h-screen flex">
 
     {{-- ── Panel izquierdo — Imagen + Marca ──────────── --}}

@@ -33,22 +33,23 @@ class RestaurantesDemoSeeder extends Seeder
     public function run(): void
     {
         $bebidas = [
-            ['nombre' => 'Gaseosa 400ml', 'categoria' => 'Bebidas', 'precio' => 3500],
-            ['nombre' => 'Limonada natural', 'categoria' => 'Bebidas', 'precio' => 4500],
-            ['nombre' => 'Jugo en agua (mango o maracuyá)', 'categoria' => 'Bebidas', 'precio' => 4000],
-            ['nombre' => 'Agua en botella 600ml', 'categoria' => 'Bebidas', 'precio' => 2500],
+            ['nombre' => 'Gaseosa 400ml', 'categoria' => 'Bebidas', 'precio' => 3500, 'imagen' => self::foto('1581636625402-29b2a704ef13')],
+            ['nombre' => 'Limonada natural', 'categoria' => 'Bebidas', 'precio' => 4500, 'imagen' => self::foto('1623084921164-4a8c5c37a912')],
+            ['nombre' => 'Jugo en agua (mango o maracuyá)', 'categoria' => 'Bebidas', 'precio' => 4000, 'imagen' => self::foto('1613478223719-2ab802602423')],
+            ['nombre' => 'Agua en botella 600ml', 'categoria' => 'Bebidas', 'precio' => 2500, 'imagen' => self::foto('1559839914-17aae19cec71')],
         ];
 
         $postres = [
-            ['nombre' => 'Torta de chocolate', 'categoria' => 'Postres', 'precio' => 6000],
-            ['nombre' => 'Flan de vainilla', 'categoria' => 'Postres', 'precio' => 5000],
-            ['nombre' => 'Brownie con helado', 'categoria' => 'Postres', 'precio' => 7000],
-            ['nombre' => 'Gelatina de mora', 'categoria' => 'Postres', 'precio' => 3500],
+            ['nombre' => 'Torta de chocolate', 'categoria' => 'Postres', 'precio' => 6000, 'imagen' => self::foto('1551024506-0bccd828d307')],
+            ['nombre' => 'Flan de vainilla', 'categoria' => 'Postres', 'precio' => 5000, 'imagen' => self::foto('1551024506-0bccd828d307')],
+            ['nombre' => 'Brownie con helado', 'categoria' => 'Postres', 'precio' => 7000, 'imagen' => self::foto('1497034825429-c343d7c6a68f')],
+            ['nombre' => 'Gelatina de mora', 'categoria' => 'Postres', 'precio' => 3500, 'imagen' => self::foto('1551024506-0bccd828d307')],
         ];
 
         $restaurantes = [
             [
                 'nombre' => 'Asadero La Brasa Ubatense',
+                'imagen' => self::foto('1544025162-d76694265947'),
                 'descripcion' => 'Pollo y carnes asadas al carbón, receta de la casa desde hace 15 años.',
                 'direccion' => 'Carrera 6 #8-20, Ubaté',
                 'costo_domicilio' => 3000, 'tiempo_entrega_min' => 30, 'tiempo_preparacion_min' => 20,
@@ -71,6 +72,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Pizzería Nápoles Ubaté',
+                'imagen' => self::foto('1604068549290-dea0e4a305ca'),
                 'descripcion' => 'Pizza artesanal horneada en horno de leña, masa madre 48 horas.',
                 'direccion' => 'Calle 7 #5-14, Ubaté',
                 'costo_domicilio' => 3500, 'tiempo_entrega_min' => 35, 'tiempo_preparacion_min' => 25,
@@ -93,6 +95,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Burger House Urbano',
+                'imagen' => self::foto('1553979459-d2229ba7433b'),
                 'descripcion' => 'Hamburguesas artesanales con pan brioche y carne 100% de res.',
                 'direccion' => 'Carrera 8 #10-30, Ubaté',
                 'costo_domicilio' => 3000, 'tiempo_entrega_min' => 25, 'tiempo_preparacion_min' => 18,
@@ -115,6 +118,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Taquería El Azteca',
+                'imagen' => self::foto('1613514785940-daed07799d9b'),
                 'descripcion' => 'Sabor mexicano auténtico, tortillas hechas a mano cada día.',
                 'direccion' => 'Calle 9 #6-18, Ubaté',
                 'costo_domicilio' => 3500, 'tiempo_entrega_min' => 30, 'tiempo_preparacion_min' => 20,
@@ -137,6 +141,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Sushi Sakura Ubaté',
+                'imagen' => self::foto('1579871494447-9811cf80d66c'),
                 'descripcion' => 'Sushi fresco y comida japonesa, ingredientes traídos a diario.',
                 'direccion' => 'Carrera 5 #9-42, Ubaté',
                 'costo_domicilio' => 4000, 'tiempo_entrega_min' => 35, 'tiempo_preparacion_min' => 25,
@@ -159,6 +164,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Café del Parque',
+                'imagen' => self::foto('1495474472287-4d71bcdd2085'),
                 'descripcion' => 'Café de especialidad y comida rápida frente al parque principal.',
                 'direccion' => 'Calle 5 #4-10, Ubaté',
                 'costo_domicilio' => 2000, 'tiempo_entrega_min' => 20, 'tiempo_preparacion_min' => 10,
@@ -181,6 +187,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Panadería San José',
+                'imagen' => self::foto('1509440159596-0249088772ff'),
                 'descripcion' => 'Pan recién horneado todo el día, desde las 5 a.m.',
                 'direccion' => 'Carrera 7 #3-25, Ubaté',
                 'costo_domicilio' => 2000, 'tiempo_entrega_min' => 20, 'tiempo_preparacion_min' => 10,
@@ -203,6 +210,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Postres Encanto',
+                'imagen' => self::foto('1551024506-0bccd828d307'),
                 'descripcion' => 'Repostería fina para toda ocasión, tortas por encargo.',
                 'direccion' => 'Calle 4 #7-11, Ubaté',
                 'costo_domicilio' => 2500, 'tiempo_entrega_min' => 25, 'tiempo_preparacion_min' => 15,
@@ -225,6 +233,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Heladería Polo Norte',
+                'imagen' => self::foto('1497034825429-c343d7c6a68f'),
                 'descripcion' => 'Helados artesanales y postres fríos, más de 20 sabores.',
                 'direccion' => 'Carrera 9 #6-05, Ubaté',
                 'costo_domicilio' => 2500, 'tiempo_entrega_min' => 20, 'tiempo_preparacion_min' => 10,
@@ -247,6 +256,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Pastas Bella Italia',
+                'imagen' => self::foto('1551183053-bf91a1d81141'),
                 'descripcion' => 'Pasta fresca casera y salsas tradicionales italianas.',
                 'direccion' => 'Calle 6 #8-33, Ubaté',
                 'costo_domicilio' => 3500, 'tiempo_entrega_min' => 30, 'tiempo_preparacion_min' => 20,
@@ -269,6 +279,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Parrilla El Fogón',
+                'imagen' => self::foto('1558030006-450675393462'),
                 'descripcion' => 'Carnes a la parrilla al estilo llanero, término a elección.',
                 'direccion' => 'Carrera 4 #9-50, Ubaté',
                 'costo_domicilio' => 4000, 'tiempo_entrega_min' => 35, 'tiempo_preparacion_min' => 25,
@@ -291,6 +302,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Mariscos La Marea',
+                'imagen' => self::foto('1519708227418-c8fd9a32b7a2'),
                 'descripcion' => 'Pescados y mariscos frescos, sabor de la costa en Ubaté.',
                 'direccion' => 'Calle 10 #5-22, Ubaté',
                 'costo_domicilio' => 4000, 'tiempo_entrega_min' => 35, 'tiempo_preparacion_min' => 25,
@@ -313,6 +325,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Arepas Doña Rosa',
+                'imagen' => self::foto('1644753787067-d62ae70f303d'),
                 'descripcion' => 'Arepas rellenas hechas al momento, receta familiar.',
                 'direccion' => 'Carrera 3 #6-40, Ubaté',
                 'costo_domicilio' => 2000, 'tiempo_entrega_min' => 20, 'tiempo_preparacion_min' => 12,
@@ -335,6 +348,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Desayunos La Madrugada',
+                'imagen' => self::foto('1533089860892-a7c6f0a88666'),
                 'descripcion' => 'Desayunos típicos colombianos desde las 5:30 a.m.',
                 'direccion' => 'Calle 3 #9-15, Ubaté',
                 'costo_domicilio' => 2500, 'tiempo_entrega_min' => 25, 'tiempo_preparacion_min' => 15,
@@ -357,6 +371,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Perros Calientes El Crack',
+                'imagen' => self::foto('1558985250-95d24f66df1b'),
                 'descripcion' => 'Perros y salchipapas cargados, el favorito de la noche en Ubaté.',
                 'direccion' => 'Carrera 6 #4-18, Ubaté',
                 'costo_domicilio' => 2500, 'tiempo_entrega_min' => 22, 'tiempo_preparacion_min' => 12,
@@ -379,6 +394,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Sándwiches Gourmet Central',
+                'imagen' => self::foto('1567234669003-dce7a7a88821'),
                 'descripcion' => 'Sandwiches gourmet con pan artesanal e ingredientes frescos.',
                 'direccion' => 'Calle 8 #4-27, Ubaté',
                 'costo_domicilio' => 3000, 'tiempo_entrega_min' => 25, 'tiempo_preparacion_min' => 15,
@@ -401,6 +417,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Jugos Tropifrut',
+                'imagen' => self::foto('1613478223719-2ab802602423'),
                 'descripcion' => 'Jugos y batidos naturales con fruta fresca de la región.',
                 'direccion' => 'Carrera 7 #10-08, Ubaté',
                 'costo_domicilio' => 2000, 'tiempo_entrega_min' => 18, 'tiempo_preparacion_min' => 8,
@@ -423,6 +440,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Pollo Broaster Express',
+                'imagen' => self::foto('1626645738196-c2a7c87a8f58'),
                 'descripcion' => 'Pollo broaster crocante, combos rápidos para toda la familia.',
                 'direccion' => 'Calle 11 #6-45, Ubaté',
                 'costo_domicilio' => 3000, 'tiempo_entrega_min' => 25, 'tiempo_preparacion_min' => 18,
@@ -445,6 +463,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Burritos Fronterizos',
+                'imagen' => self::foto('1626700051175-6818013e1d4f'),
                 'descripcion' => 'Burritos y bowls estilo tex-mex, porciones grandes.',
                 'direccion' => 'Carrera 9 #3-12, Ubaté',
                 'costo_domicilio' => 3500, 'tiempo_entrega_min' => 28, 'tiempo_preparacion_min' => 18,
@@ -467,6 +486,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Panadería y Café Aroma',
+                'imagen' => self::foto('1509440159596-0249088772ff'),
                 'descripcion' => 'Panadería y café en un mismo lugar, ideal para media mañana.',
                 'direccion' => 'Calle 2 #8-09, Ubaté',
                 'costo_domicilio' => 2000, 'tiempo_entrega_min' => 20, 'tiempo_preparacion_min' => 10,
@@ -515,13 +535,14 @@ class RestaurantesDemoSeeder extends Seeder
             $lat = self::UBATE_LAT + ($fila - 1.5) * 0.0016;
             $lng = self::UBATE_LNG + ($col - 2) * 0.0016;
 
-            $restaurante = Restaurante::firstOrCreate(
+            $restaurante = Restaurante::updateOrCreate(
                 ['user_id' => $user->id],
                 [
                     'nombre' => $data['nombre'],
                     'descripcion' => $data['descripcion'],
                     'direccion' => $data['direccion'],
                     'telefono' => $user->telefono,
+                    'imagen' => $data['imagen'],
                     'activo' => true,
                     'costo_domicilio' => $data['costo_domicilio'],
                     'tiempo_entrega_min' => $data['tiempo_entrega_min'],
@@ -543,12 +564,13 @@ class RestaurantesDemoSeeder extends Seeder
             );
 
             foreach ($productos as $p) {
-                Producto::firstOrCreate(
+                Producto::updateOrCreate(
                     ['restaurante_id' => $restaurante->id, 'nombre' => $p['nombre']],
                     [
                         'categoria' => $p['categoria'],
                         'precio' => $p['precio'],
                         'disponible' => true,
+                        'imagen' => $p['imagen'] ?? self::fotoParaProducto($p['nombre']) ?? $data['imagen'],
                     ]
                 );
             }
@@ -573,5 +595,169 @@ class RestaurantesDemoSeeder extends Seeder
             'sabado' => $normal,
             'domingo' => ['abierto' => true, 'apertura' => '09:00', 'cierre' => '15:00'],
         ];
+    }
+
+    /**
+     * URL de Unsplash en el mismo formato ya usado por los 2 restaurantes
+     * originales (`w=800&q=70&auto=format&fit=crop`). Todos los IDs de este
+     * seeder fueron verificados a mano (descargados y revisados uno por uno)
+     * antes de usarlos — ver conversación de la Fase de imágenes demo.
+     */
+    private static function foto(string $id): string
+    {
+        return "https://images.unsplash.com/photo-{$id}?w=800&q=70&auto=format&fit=crop";
+    }
+
+    /**
+     * Foto por coincidencia de palabra clave en el nombre del producto — mismo
+     * patrón que `emojiDe()` en `cliente/restaurantes/index.blade.php`. Los
+     * pares están ordenados de más específico a más genérico para que, por
+     * ejemplo, "Arepa de pollo desmechado" caiga en arepa y no en pollo.
+     * Si nada coincide, el caller usa la foto del restaurante como respaldo.
+     */
+    private static function fotoParaProducto(string $nombre): ?string
+    {
+        $n = mb_strtolower($nombre);
+
+        $reglas = [
+            // Colombiano / arepas / desayunos (antes que "pollo" o "carne" sueltos)
+            ['arepa', self::foto('1644753787067-d62ae70f303d')],
+            ['huevo', self::foto('1533089860892-a7c6f0a88666')],
+            ['calentado', self::foto('1533089860892-a7c6f0a88666')],
+            ['changua', self::foto('1533089860892-a7c6f0a88666')],
+            ['tamal', self::foto('1533089860892-a7c6f0a88666')],
+            ['caldo', self::foto('1533089860892-a7c6f0a88666')],
+            ['desayuno', self::foto('1533089860892-a7c6f0a88666')],
+            // Pollo / asados
+            ['costilla', self::foto('1544025162-d76694265947')],
+            ['cuarto de pollo', self::foto('1626082927389-6cd097cdc6ec')],
+            ['broaster', self::foto('1626645738196-c2a7c87a8f58')],
+            ['alitas', self::foto('1626645738196-c2a7c87a8f58')],
+            ['pollo apanado', self::foto('1626645738196-c2a7c87a8f58')],
+            ['nuggets', self::foto('1626645738196-c2a7c87a8f58')],
+            ['pollo asado', self::foto('1598103442097-8b74394b95c6')],
+            // Pizza
+            ['margarita', self::foto('1604068549290-dea0e4a305ca')],
+            ['hawaiana', self::foto('1565299624946-b28f40a0ae38')],
+            ['pepperoni', self::foto('1628840042765-356cda07504e')],
+            ['pizza', self::foto('1604068549290-dea0e4a305ca')],
+            ['calzone', self::foto('1604068549290-dea0e4a305ca')],
+            // Hamburguesas / perros / sandwiches
+            ['doble', self::foto('1553979459-d2229ba7433b')],
+            ['hamburguesa', self::foto('1571091718767-18b5b1457add')],
+            ['perro', self::foto('1558985250-95d24f66df1b')],
+            ['salchipapa', self::foto('1558985250-95d24f66df1b')],
+            ['choripapa', self::foto('1558985250-95d24f66df1b')],
+            ['sandwich', self::foto('1567234669003-dce7a7a88821')],
+            ['club sandwich', self::foto('1567234669003-dce7a7a88821')],
+            ['wrap', self::foto('1567234669003-dce7a7a88821')],
+            ['croissant relleno', self::foto('1567234669003-dce7a7a88821')],
+            // Mexicana
+            ['taco', self::foto('1613514785940-daed07799d9b')],
+            ['burrito', self::foto('1626700051175-6818013e1d4f')],
+            ['bowl mexicano', self::foto('1626700051175-6818013e1d4f')],
+            ['quesabirria', self::foto('1626700051175-6818013e1d4f')],
+            ['torta mexicana', self::foto('1626700051175-6818013e1d4f')],
+            ['nachos', self::foto('1626700051175-6818013e1d4f')],
+            ['quesadilla', self::foto('1613514785940-daed07799d9b')],
+            ['fajitas', self::foto('1613514785940-daed07799d9b')],
+            ['enchiladas', self::foto('1613514785940-daed07799d9b')],
+            ['chile con carne', self::foto('1613514785940-daed07799d9b')],
+            ['guacamole', self::foto('1613514785940-daed07799d9b')],
+            // Sushi / japonesa
+            ['roll', self::foto('1579871494447-9811cf80d66c')],
+            ['tempura', self::foto('1617196034796-73dfa7b1fd56')],
+            ['gyoza', self::foto('1496116218417-1a781b1c416c')],
+            ['nigiri', self::foto('1579871494447-9811cf80d66c')],
+            ['poke', self::foto('1579871494447-9811cf80d66c')],
+            ['ramen', self::foto('1579871494447-9811cf80d66c')],
+            ['yakisoba', self::foto('1579871494447-9811cf80d66c')],
+            // Café / panadería
+            ['café', self::foto('1495474472287-4d71bcdd2085')],
+            ['capuchino', self::foto('1495474472287-4d71bcdd2085')],
+            ['cappuccino', self::foto('1495474472287-4d71bcdd2085')],
+            ['latte', self::foto('1495474472287-4d71bcdd2085')],
+            ['mocachino', self::foto('1495474472287-4d71bcdd2085')],
+            ['chocolate', self::foto('1495474472287-4d71bcdd2085')],
+            ['pan', self::foto('1509440159596-0249088772ff')],
+            ['croissant', self::foto('1509440159596-0249088772ff')],
+            ['pandebono', self::foto('1509440159596-0249088772ff')],
+            ['almojábana', self::foto('1509440159596-0249088772ff')],
+            ['buñuelo', self::foto('1509440159596-0249088772ff')],
+            ['empanada', self::foto('1509440159596-0249088772ff')],
+            ['pastel', self::foto('1509440159596-0249088772ff')],
+            ['muffin', self::foto('1509440159596-0249088772ff')],
+            ['bagel', self::foto('1509440159596-0249088772ff')],
+            // Postres / helados
+            ['helado', self::foto('1497034825429-c343d7c6a68f')],
+            ['malteada', self::foto('1497034825429-c343d7c6a68f')],
+            ['milkshake', self::foto('1497034825429-c343d7c6a68f')],
+            ['sundae', self::foto('1497034825429-c343d7c6a68f')],
+            ['banana split', self::foto('1497034825429-c343d7c6a68f')],
+            ['paleta', self::foto('1497034825429-c343d7c6a68f')],
+            ['barquillo', self::foto('1497034825429-c343d7c6a68f')],
+            ['vasito de helado', self::foto('1497034825429-c343d7c6a68f')],
+            ['torta', self::foto('1551024506-0bccd828d307')],
+            ['cheesecake', self::foto('1551024506-0bccd828d307')],
+            ['milhojas', self::foto('1551024506-0bccd828d307')],
+            ['arroz con leche', self::foto('1551024506-0bccd828d307')],
+            ['obleas', self::foto('1551024506-0bccd828d307')],
+            ['brownie', self::foto('1551024506-0bccd828d307')],
+            ['fresas con crema', self::foto('1551024506-0bccd828d307')],
+            ['copa de frutas', self::foto('1551024506-0bccd828d307')],
+            // Pastas / italiana
+            ['pasta', self::foto('1551183053-bf91a1d81141')],
+            ['fettuccine', self::foto('1551183053-bf91a1d81141')],
+            ['espagueti', self::foto('1551183053-bf91a1d81141')],
+            ['spaghetti', self::foto('1551183053-bf91a1d81141')],
+            ['ravioles', self::foto('1551183053-bf91a1d81141')],
+            ['lasaña', self::foto('1551183053-bf91a1d81141')],
+            ['penne', self::foto('1551183053-bf91a1d81141')],
+            ['risotto', self::foto('1551183053-bf91a1d81141')],
+            ['ñoquis', self::foto('1551183053-bf91a1d81141')],
+            ['bruschetta', self::foto('1551183053-bf91a1d81141')],
+            ['minestrone', self::foto('1551183053-bf91a1d81141')],
+            ['caprese', self::foto('1551183053-bf91a1d81141')],
+            // Carnes / parrilla
+            ['churrasco', self::foto('1558030006-450675393462')],
+            ['punta de anca', self::foto('1558030006-450675393462')],
+            ['baby beef', self::foto('1558030006-450675393462')],
+            ['pechuga', self::foto('1558030006-450675393462')],
+            ['parrillera', self::foto('1558030006-450675393462')],
+            ['chuleta', self::foto('1558030006-450675393462')],
+            ['trucha', self::foto('1558030006-450675393462')],
+            ['chorizo', self::foto('1558030006-450675393462')],
+            ['morcilla', self::foto('1558030006-450675393462')],
+            ['mazorca', self::foto('1558030006-450675393462')],
+            // Mariscos / pescado
+            ['camarones', self::foto('1519708227418-c8fd9a32b7a2')],
+            ['camarón', self::foto('1519708227418-c8fd9a32b7a2')],
+            ['cazuela de mariscos', self::foto('1519708227418-c8fd9a32b7a2')],
+            ['pescado', self::foto('1519708227418-c8fd9a32b7a2')],
+            ['langostinos', self::foto('1519708227418-c8fd9a32b7a2')],
+            ['paella', self::foto('1519708227418-c8fd9a32b7a2')],
+            ['sancocho', self::foto('1519708227418-c8fd9a32b7a2')],
+            ['ceviche', self::foto('1519708227418-c8fd9a32b7a2')],
+            ['mar y tierra', self::foto('1519708227418-c8fd9a32b7a2')],
+            // Jugos / bebidas
+            ['limonada', self::foto('1623084921164-4a8c5c37a912')],
+            ['jugo', self::foto('1613478223719-2ab802602423')],
+            ['smoothie', self::foto('1613478223719-2ab802602423')],
+            ['batido', self::foto('1613478223719-2ab802602423')],
+            ['agua en botella', self::foto('1559839914-17aae19cec71')],
+            ['gaseosa', self::foto('1581636625402-29b2a704ef13')],
+            // Papas / acompañamientos genéricos (al final, muy genérico)
+            ['papas', self::foto('1573080496219-bb080dd4f877')],
+            ['yuca frita', self::foto('1573080496219-bb080dd4f877')],
+            ['aros de cebolla', self::foto('1573080496219-bb080dd4f877')],
+        ];
+
+        foreach ($reglas as [$needle, $foto]) {
+            if (str_contains($n, $needle)) {
+                return $foto;
+            }
+        }
+
+        return null;
     }
 }
