@@ -241,10 +241,10 @@ Widget flotante disponible en las 4 vistas autenticadas de la web y en la app m�
 - **Falla suave:** sin `GEMINI_API_KEY` en `.env`, o si la llamada falla, responde "El asistente no está disponible en este momento" — el resto de la app sigue funcionando igual (mismo patrón que `FcmSender`).
 - **Modelo y respaldo:** `GEMINI_MODEL=gemini-flash-latest` es el principal. Si falla (503 saturado, 429 cuota, timeout) `GeminiService` prueba en cadena `gemini-3.6-flash → gemini-3.5-flash-lite → gemini-flash-lite-latest`. **La cuota gratuita de Google es por modelo y por día** (p. ej. 20 peticiones/día en `gemini-flash-latest`), por eso se encadenan varios: cada uno aporta su propio cupo. Un modelo que responde 429 se salta durante 10 min; los reintentos solo se hacen ante 5xx/timeout; el tope total es ~24 s por mensaje. Para producción con muchos usuarios conviene activar facturación en Google AI Studio.
 - **Caché:** una pregunta idéntica (mismo usuario/restaurante, sin historial, dentro del mismo minuto) se sirve 2 min desde caché para no gastar cuota.
-- **Memoria de conversación:** la web envía los últimos turnos en `historial` (opcional, máx. 10) para entender preguntas de seguimiento; la app móvil puede omitirlo. Nada se guarda en base de datos.
+- **Memoria de conversación:** web y app móvil envían los últimos turnos en `historial` (opcional, máx. 10) para entender preguntas de seguimiento. Nada se guarda en base de datos.
 - **API key:** viaja en el header `x-goog-api-key`, no en la URL, para que no aparezca en `laravel.log`.
 - **Web:** `resources/views/partials/chatbot-widget.blade.php` + `resources/js/chatbot.js` (Alpine.js), con botones de preguntas sugeridas. Tras cambiar el JS: `npm run build`.
-- **App móvil:** `ChatbotFab` en `app_movil/lib/features/shared/widgets/chatbot_flotante.dart`, agregado en los shells de cliente y domiciliario.
+- **App móvil:** `ChatbotFab` en `app_movil/lib/features/shared/widgets/chatbot_flotante.dart`, agregado en los shells de cliente y domiciliario. Igual que la web: preguntas sugeridas (chips), memoria de conversación (`ChatbotService.enviarMensaje(..., historial:)`) y saludo actualizado.
 
 ## 12. Base de datos
 

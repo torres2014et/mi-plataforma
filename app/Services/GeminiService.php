@@ -140,8 +140,19 @@ class GeminiService
                 return null;
             }
 
-            $texto = $res->json('candidates.0.content.parts.0.text');
-            return is_string($texto) && trim($texto) !== '' ? trim($texto) : null;
+            // La respuesta puede venir partida en varias partes (y algunas de "razonamiento"):
+            // se unen solo las de texto final, no únicamente la primera.
+            $texto = collect($res->json('candidates.0.content.parts', []))
+                ->filter(fn ($p) => empty($p['thought']) && isset($p['text']))
+                ->pluck('text')
+                ->implode('');
+
+            $fin = $res->json('candidates.0.finishReason');
+            if ($fin && $fin !== 'STOP') {
+                Log::warning('Gemini: respuesta terminó con finishReason distinto de STOP', ['model' => $model, 'finishReason' => $fin]);
+            }
+
+            return trim($texto) !== '' ? trim($texto) : null;
         } catch (\Throwable $e) {
             Log::warning("Gemini: excepción al llamar ({$model}): ".$e->getMessage());
             return null;
