@@ -1,10 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../services/api/api_auth_service.dart';
+import '../services/api/api_chatbot_service.dart';
 import '../services/api/api_client.dart';
 import '../services/api/api_pedido_service.dart';
 import '../services/api/api_restaurante_service.dart';
 import '../services/auth_service.dart';
+import '../services/chatbot_service.dart';
 import '../services/fcm_service.dart';
 import '../services/geolocator_ubicacion_service.dart';
 import '../services/local_notificacion_service.dart';
@@ -38,6 +40,10 @@ final restauranteServiceProvider = Provider<RestauranteService>((ref) {
 
 final pedidoServiceProvider = Provider<PedidoService>((ref) {
   return ApiPedidoService(ref.read(apiClientProvider));
+});
+
+final chatbotServiceProvider = Provider<ChatbotService>((ref) {
+  return ApiChatbotService(ref.read(apiClientProvider));
 });
 
 // Ubicación: implementación real con GPS (no tiene versión Fake). No depende

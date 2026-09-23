@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../shared/widgets/chatbot_flotante.dart';
 import 'mis_pedidos_tab.dart';
 import 'perfil_tab.dart';
 import 'restaurantes_tab.dart';
@@ -24,6 +25,7 @@ class _ClienteHomeScreenState extends State<ClienteHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(index: _indice, children: _tabs),
+      floatingActionButton: const ChatbotFab(),
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
           backgroundColor: AppColors.surface,

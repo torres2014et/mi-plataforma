@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PedidoController;
 use App\Http\Controllers\Api\RestauranteController;
+use App\Http\Controllers\ChatbotController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // aquí la firma del canal `pedido.{id}` usando su token Sanctum. Las reglas
     // de autorización viven en routes/channels.php.
     Route::post('/broadcasting/auth', fn (Request $request) => Broadcast::auth($request));
+
+    // Chatbot IA (Gemini) — mismo controller que la web (routes/web.php); aquí
+    // protegido con el token Sanctum de la app en vez de sesión.
+    Route::post('/chatbot/mensaje', [ChatbotController::class, 'enviarMensaje'])
+        ->middleware('throttle:20,1');
 
     // Restaurantes y menú
     Route::get('/restaurantes',                 [RestauranteController::class, 'index']);
