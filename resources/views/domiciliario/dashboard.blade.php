@@ -222,6 +222,15 @@
                                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                     Vas en camino a recoger — el restaurante ya lo sabe.
                                 </div>
+                                <form action="{{ route('domiciliario.pedidos.salir', $pedidoActivo) }}" method="POST" class="mt-3">
+                                    @csrf
+                                    <button type="submit" class="btn-primary w-full justify-center">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 12h15"/>
+                                        </svg>
+                                        Salí a entregar
+                                    </button>
+                                </form>
                             @endif
                         @endif
 

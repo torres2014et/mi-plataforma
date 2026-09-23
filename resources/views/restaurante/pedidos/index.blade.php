@@ -13,7 +13,7 @@
     </x-slot>
 
     {{-- Banner tiempo real --}}
-    <div x-data="pedidosRT({{ $restaurante->id }})"
+    <div x-data="pedidosRT({{ $restaurante->id }}, {{ $pedidosActivos->pluck('id')->toJson() }})"
          x-show="visible"
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 -translate-y-4"
@@ -127,19 +127,16 @@
 
                                 {{-- Asignación cuando el pedido está en preparación --}}
                                 @if($pedido->estado === 'en_preparacion')
-                                    <form action="{{ route('restaurante.pedidos.asignar', $pedido) }}" method="POST"
-                                          class="flex items-center gap-2 flex-wrap">
-                                        @csrf @method('PATCH')
-                                        @if($pedido->domiciliario_id)
-                                            {{-- Un domiciliario ya aceptó el pedido desde la app: solo despachar --}}
-                                            <input type="hidden" name="domiciliario_id" value="{{ $pedido->domiciliario_id }}">
-                                            <p class="text-xs text-emerald-400 bg-emerald-900/30 border border-emerald-800/40 px-3 py-2 rounded-lg flex-1">
-                                                Aceptado por {{ $pedido->domiciliario->name ?? 'domiciliario' }}
-                                            </p>
-                                            <button type="submit" class="btn-primary text-sm">
-                                                Enviar a domicilio
-                                            </button>
-                                        @elseif($domiciliariosDisponibles->isNotEmpty())
+                                    @if($pedido->domiciliario_id)
+                                        {{-- Un domiciliario ya se auto-aceptó el pedido (app o web): el
+                                             restaurante solo espera a que recoja y salga a entregar. --}}
+                                        <p class="text-xs text-emerald-400 bg-emerald-900/30 border border-emerald-800/40 px-3 py-2 rounded-lg">
+                                            Aceptado por {{ $pedido->domiciliario->name ?? 'domiciliario' }} — esperando que recoja y salga a entregar.
+                                        </p>
+                                    @elseif($domiciliariosDisponibles->isNotEmpty())
+                                        <form action="{{ route('restaurante.pedidos.asignar', $pedido) }}" method="POST"
+                                              class="flex items-center gap-2 flex-wrap">
+                                            @csrf @method('PATCH')
                                             <select name="domiciliario_id" class="input text-sm py-2 flex-1 min-w-40">
                                                 <option value="">Seleccionar domiciliario…</option>
                                                 @foreach($domiciliariosDisponibles as $dom)
@@ -147,14 +144,14 @@
                                                 @endforeach
                                             </select>
                                             <button type="submit" class="btn-primary text-sm">
-                                                Enviar a domicilio
+                                                Asignar domiciliario
                                             </button>
-                                        @else
-                                            <p class="text-xs text-amber-400 bg-amber-900/30 border border-amber-800/40 px-3 py-2 rounded-lg flex-1">
-                                                Aún ningún domiciliario ha aceptado este pedido.
-                                            </p>
-                                        @endif
-                                    </form>
+                                        </form>
+                                    @else
+                                        <p class="text-xs text-amber-400 bg-amber-900/30 border border-amber-800/40 px-3 py-2 rounded-lg">
+                                            Aún ningún domiciliario ha aceptado este pedido.
+                                        </p>
+                                    @endif
                                 @endif
 
                                 <div class="flex gap-2 flex-wrap">
@@ -228,7 +225,7 @@
 
 @push('scripts')
 <script>
-function pedidosRT(restauranteId) {
+function pedidosRT(restauranteId, pedidoIds = []) {
     return {
         visible: false,
         mensaje: '',
@@ -249,6 +246,14 @@ function pedidosRT(restauranteId) {
                     const icono = EMOJI[e.medio] || '🛵';
                     this.mostrar(`${icono} ${e.domiciliario} va en camino a recoger el pedido #${e.pedido_id}`);
                 });
+
+            // Un pedido activo cambió de estado (típicamente: el domiciliario
+            // salió a entregar) — mismo aviso, para no depender de refrescar.
+            pedidoIds.forEach((id) => {
+                window.Echo.private(`pedido.${id}`).listen('.estado.actualizado', (e) => {
+                    this.mostrar(`📦 Pedido #${id} → ${e.estadoLabel}`);
+                });
+            });
         },
 
         mostrar(msg) {

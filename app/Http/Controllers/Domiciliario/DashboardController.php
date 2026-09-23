@@ -6,9 +6,11 @@ use App\Events\DomiciliarioAcepto;
 use App\Events\DomiciliarioUbicacion;
 use App\Events\PedidoActualizado;
 use App\Http\Controllers\Controller;
+use App\Mail\PedidoEstadoActualizado;
 use App\Models\Pedido;
 use App\Services\FcmSender;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class DashboardController extends Controller
 {
@@ -91,6 +93,32 @@ class DashboardController extends Controller
         }
 
         return back()->with('success', "Vas en camino a recoger el pedido #{$pedido->id}.");
+    }
+
+    /**
+     * El domiciliario (web) marca que ya recogió el pedido y sale a
+     * entregarlo (`en_preparacion → en_camino`). Mismo criterio que
+     * `Api\PedidoController::actualizarEstado` cuando el destino es
+     * `en_camino`: dispara el aviso al cliente (push + email) y el mapa en
+     * vivo empieza a mostrarlo. Antes esta transición solo la podía disparar
+     * el restaurante; ahora, igual que en la app, es el domiciliario quien
+     * la dispara — el restaurante solo asigna como respaldo si nadie acepta.
+     */
+    public function salir(Request $request, Pedido $pedido)
+    {
+        abort_unless($pedido->domiciliario_id === auth()->id(), 403);
+        abort_if(is_null($pedido->recogiendo_at), 422, 'Primero marca que vas a recoger el pedido.');
+        abort_unless($pedido->estado === 'en_preparacion', 422, 'El pedido ya no está en fase de recogida.');
+
+        $pedido->update(['estado' => 'en_camino']);
+        broadcast(new PedidoActualizado($pedido))->toOthers();
+
+        app(FcmSender::class)->avisarSalio($pedido);
+
+        $pedido->load(['cliente', 'restaurante', 'items']);
+        Mail::to($pedido->cliente->email)->queue(new PedidoEstadoActualizado($pedido));
+
+        return back()->with('success', "¡Saliste a entregar el pedido #{$pedido->id}!");
     }
 
     /**
