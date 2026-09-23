@@ -17,6 +17,7 @@ import '../../providers/restaurante_providers.dart';
 import '../../providers/services_providers.dart';
 import '../shared/widgets/aparicion_animada.dart';
 import '../shared/widgets/brand_button.dart';
+import '../shared/widgets/chatbot_flotante.dart';
 import '../shared/widgets/estado_chip.dart';
 import '../shared/widgets/fondo_aurora.dart';
 import '../shared/widgets/mapa_pedido.dart';
@@ -57,6 +58,7 @@ class DomiciliarioHomeScreen extends ConsumerWidget {
           ),
         ],
       ),
+      floatingActionButton: const ChatbotFab(),
       body: FondoAurora(
         child: RefreshIndicator(
         onRefresh: () async {
