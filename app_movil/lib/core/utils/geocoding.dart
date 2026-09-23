@@ -62,7 +62,7 @@ Future<List<SugerenciaDireccion>> buscarDirecciones(String texto) async {
 /// Usa Nominatim reverse. Devuelve la dirección "amigable" (calle + número +
 /// barrio + ciudad, sin el país) o `null` si no se pudo resolver. Esto es lo
 /// que permite que al tocar el mapa (o usar el GPS) se llene solo el campo de
-/// dirección del checkout, como hace Rappi/Uber Eats.
+/// dirección del checkout, como en las apps de delivery premium.
 Future<String?> direccionDe(LatLng punto) async {
   final url = Uri.parse(
     'https://nominatim.openstreetmap.org/reverse'

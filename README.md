@@ -1,6 +1,6 @@
 # Mi Plataforma — Ubaté Eats
 
-Plataforma de domicilios de comidas rápidas para **Ubaté, Cundinamarca**. Reemplaza a Rappi/iFood para los negocios locales: sin altas comisiones, con control directo de catálogo, pedidos y logística.
+Plataforma de domicilios de comidas rápidas para **Ubaté, Cundinamarca**. Alternativa local a las apps de domicilios nacionales para los negocios locales: sin altas comisiones, con control directo de catálogo, pedidos y logística.
 
 **Stack:** Laravel 12 · MySQL · Tailwind CSS 3 · Alpine.js 3 · Vite 7 · Laravel Reverb (WebSockets) · Leaflet.js (mapas).
 

@@ -19,7 +19,7 @@ class Brand {
 }
 
 /// Paleta central de la app, igualada a la web (tema oscuro premium estilo
-/// Rappi/iFood). Tener los colores en un solo lugar evita "colores mágicos"
+/// apps de delivery). Tener los colores en un solo lugar evita "colores mágicos"
 /// repartidos por las pantallas. **Tomar los colores de aquí, nunca hardcodear.**
 class AppColors {
   AppColors._();

@@ -447,7 +447,7 @@ class _SinPedido extends StatelessWidget {
   }
 }
 
-/// Skeleton con shimmer mientras carga una sección (estilo Rappi).
+/// Skeleton con shimmer mientras carga una sección (estilo apps de delivery premium).
 class _CargandoSeccion extends StatelessWidget {
   const _CargandoSeccion();
 

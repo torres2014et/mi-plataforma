@@ -3,7 +3,7 @@ PROMPT: Sistema de pulido visual profesional (cualquier proyecto)
 ================================================================================
 
 Copia este prompt al inicio de tu sesion cuando quieras elevar la UI de un
-proyecto al nivel Rappi / Uber Eats / Linear / Stripe usando solo widgets o
+proyecto al nivel Uber Eats / Linear / Stripe usando solo widgets o
 componentes nativos del stack, sin agregar dependencias innecesarias.
 
 Funciona en Flutter, React Native, SwiftUI, Jetpack Compose, etc. Los principios
@@ -15,7 +15,7 @@ INICIO DEL PROMPT (copiar desde aqui)
 
 # Mision
 
-Pulir la UI de este proyecto al nivel de las apps top del mercado (Rappi, Uber
+Pulir la UI de este proyecto al nivel de las apps top del mercado (Uber
 Eats, Linear, Stripe, Vercel) usando solo widgets/componentes nativos del stack
 — sin agregar dependencias innecesarias.
 
@@ -139,7 +139,7 @@ Nunca usar SnackBar plano. Helper que devuelva:
 - Dribbble + Behance: conceptos premium
 - Vercel/Linear/Cluely: minimalismo tecnico (grid, spotlight)
 - Stripe/Apple: gradientes + mesh + silk waves
-- Rappi/iFood/Uber Eats: patron delivery (parallax, badges, hero)
+- iFood/Uber Eats: patron delivery (parallax, badges, hero)
 - Cosmos (cosmos.so): tableros visuales curados
 
 ================================================================================
