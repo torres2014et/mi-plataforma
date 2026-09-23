@@ -12,6 +12,15 @@ Registro de actualizaciones subidas a este repositorio. Formato: fecha, resumen 
 - Se verificó que ningún secreto o credencial real quedó incluido en el commit.
 - Se agregó `docs/CHANGELOG.md` (este archivo) para llevar el historial de cambios versionado.
 
+## 2026-09-22 — Chatbot IA, datos de demo más grandes y rediseño de interacciones
+
+- **Chatbot IA (Gemini)** — asistente conversacional en web (`resources/views/partials/chatbot-widget.blade.php`) y app móvil (`ChatbotFab` en Flutter), disponible para los 4 roles. Responde sobre restaurantes/productos/pedidos usando el catálogo real de la base de datos, rechaza temas ajenos a la plataforma y falla en silencio si no hay `GEMINI_API_KEY` configurada. Mismo `ChatbotController`/`GeminiService` sirve `POST /chatbot/mensaje` (web, sesión) y `POST /api/chatbot/mensaje` (app, Sanctum). Sin persistencia del historial.
+- **`RestaurantesDemoSeeder`** — 20 restaurantes nuevos (usuarios `demo-vendedorN@test.com`) con 20 productos cada uno (408 productos en total con los 2 restaurantes originales), pensado para probar el chatbot, la búsqueda y el filtro por categoría con un catálogo más grande. Se corre automáticamente con `php artisan migrate:fresh --seed`.
+- **Imágenes reales** en los 22 restaurantes y sus 408 productos (Unsplash, verificadas visualmente una por una antes de usarse), con variedad dentro de cada menú para evitar que un mismo restaurante muestre la misma foto en casi todos sus platos.
+- **Splash de bienvenida** en el login web (scooter acelerando + insignia de marca), una sola vez por sesión del navegador — mismo espíritu que el splash de la app Flutter.
+- **Rediseño de interacciones ("gran escala")** — nuevas primitivas compartidas del design system: fondo ambiental animado detrás de toda la app autenticada, tarjetas con spotlight/tilt 3D que siguen el mouse (`.card-interactive`), scroll-reveal reutilizable, shimmer continuo en los botones principales y navegación reactiva al scroll. Aplicadas globalmente vía el layout compartido y explícitamente en el grid de restaurantes, el menú de productos y los 4 dashboards por rol.
+- Actualizados `docs/MANUAL_PROGRAMADOR.md` (nueva sección del chatbot, configuración de Gemini, seeder de demo, capa de interacciones) y `docs/MANUAL_USUARIO.md` (nueva sección del asistente virtual).
+
 ## 2026-09-18 — Preparación para desplegar en Railway
 
 - Se agregó un `Dockerfile` en la raíz, pensado para reutilizarse en 3 servicios de Railway (web, cola de trabajos, Reverb/WebSockets) cambiando solo el comando de inicio de cada uno.
