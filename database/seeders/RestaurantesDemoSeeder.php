@@ -486,7 +486,7 @@ class RestaurantesDemoSeeder extends Seeder
             ],
             [
                 'nombre' => 'Panadería y Café Aroma',
-                'imagen' => self::foto('1509440159596-0249088772ff'),
+                'imagen' => self::foto('1568254183919-78a4f43a2877'),
                 'descripcion' => 'Panadería y café en un mismo lugar, ideal para media mañana.',
                 'direccion' => 'Calle 2 #8-09, Ubaté',
                 'costo_domicilio' => 2000, 'tiempo_entrega_min' => 20, 'tiempo_preparacion_min' => 10,
@@ -620,6 +620,54 @@ class RestaurantesDemoSeeder extends Seeder
         $n = mb_strtolower($nombre);
 
         $reglas = [
+            // --- Variedad extra (2026-09-22): evita que un mismo menú muestre
+            // la misma foto en casi todos sus platos. Reglas MUY específicas
+            // (nombre exacto del plato), revisadas antes que las genéricas de
+            // abajo — por eso van primero en el array.
+            ['torta de tres leches', self::foto('1641848421644-a1603f016f51')],
+            ['fresas con crema', self::foto('1641848421644-a1603f016f51')],
+            ['torta de cumpleaños', self::foto('1641848421644-a1603f016f51')],
+            ['torta de zanahoria', self::foto('1676300186098-9b5ae9916e3c')],
+            ['copa brownie con helado', self::foto('1633881613747-e98695066141')],
+            ['banana split', self::foto('1633981806729-973c239476c3')],
+            ['sundae', self::foto('1633881613747-e98695066141')],
+            ['copa especial polo norte', self::foto('1633881613747-e98695066141')],
+            ['lasaña', self::foto('1640063414338-af9faa0c2485')],
+            ['risotto', self::foto('1633964913295-ceb43826e7c9')],
+            ['camarones al ajillo', self::foto('1625943553852-781c6dd46faa')],
+            ['ceviche', self::foto('1625943553852-781c6dd46faa')],
+            ['langostinos', self::foto('1625943553852-781c6dd46faa')],
+            ['paella', self::foto('1534080564583-6be75777b70a')],
+            ['pescado frito', self::foto('1665401015549-712c0dc5ef85')],
+            ['trucha', self::foto('1665401015549-712c0dc5ef85')],
+            ['churrasco', self::foto('1600891964092-4316c288032e')],
+            ['baby beef', self::foto('1600891964092-4316c288032e')],
+            ['pechuga', self::foto('1598515214211-89d3c73ae83b')],
+            ['bowl mexicano', self::foto('1602881916963-5daf2d97c06e')],
+            ['quesabirria', self::foto('1618040996337-56904b7850b9')],
+            ['quesadilla', self::foto('1618040996337-56904b7850b9')],
+            ['8 presas', self::foto('1638439430466-b2bb7fdc1d67')],
+            ['combo familiar broaster', self::foto('1638439430466-b2bb7fdc1d67')],
+            ['pollo apanado', self::foto('1638439430466-b2bb7fdc1d67')],
+            ['wrap de pollo', self::foto('1646530208887-8a791bff4701')],
+            ['sandwich de pavo', self::foto('1646530208887-8a791bff4701')],
+            ['calentado paisa', self::foto('1723693407562-bb4fcae76797')],
+            ['desayuno campesino', self::foto('1723693407562-bb4fcae76797')],
+            ['smoothie de banano', self::foto('1662130187270-a4d52c700eb6')],
+            ['batido de frutos rojos', self::foto('1662130187270-a4d52c700eb6')],
+            ['ramen', self::foto('1612927601601-6638404737ce')],
+            ['poke bowl', self::foto('1597958792579-bd3517df6399')],
+            ['hamburguesa bbq bacon', self::foto('1586190848861-99aa4a171e90')],
+            ['hamburguesa vegetariana', self::foto('1520072959219-c595dc870360')],
+            ['pizza cuatro quesos', self::foto('1732223229355-95a1433404bf')],
+            ['pizza vegetariana', self::foto('1595708684082-a173bb3a06c5')],
+            ['salchipapa completa', self::foto('1639744210631-209fce3e256c')],
+            ['arepa reina pepiada', self::foto('1722239311914-973d8f206074')],
+            ['arepa de carne mechada', self::foto('1722239311914-973d8f206074')],
+            ['arepa mixta', self::foto('1605613160690-4606345d5d39')],
+            ['arepa con queso', self::foto('1605613160690-4606345d5d39')],
+            ['arepa de choclo', self::foto('1605613160690-4606345d5d39')],
+
             // Colombiano / arepas / desayunos (antes que "pollo" o "carne" sueltos)
             ['arepa', self::foto('1644753787067-d62ae70f303d')],
             ['huevo', self::foto('1533089860892-a7c6f0a88666')],
