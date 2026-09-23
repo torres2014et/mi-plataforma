@@ -237,11 +237,13 @@ Controladores: `Api\AuthController`, `Api\PedidoController`, `Api\RestauranteCon
 
 Widget flotante disponible en las 4 vistas autenticadas de la web y en la app móvil (cliente y domiciliario).
 
-- **Backend:** `POST /chatbot/mensaje` (web, sesión) y `POST /api/chatbot/mensaje` (app, Sanctum) apuntan al mismo `ChatbotController` → `App\Services\GeminiService`. Construye el system prompt (`storage/app/chatbot/system-prompt.md`) + un contexto JSON con restaurantes/productos reales de la BD, y llama a la API de Gemini.
+- **Backend:** `POST /chatbot/mensaje` (web, sesión) y `POST /api/chatbot/mensaje` (app, Sanctum) apuntan al mismo `ChatbotController` → `App\Services\GeminiService`. Construye el system prompt (`resources/chatbot/system-prompt.md`, versionado) + un contexto JSON y llama a la API de Gemini. El contexto incluye: fecha/hora actual en Bogotá; por restaurante, dirección, teléfono, domicilio, tiempo de entrega, calificación, **horario semanal y `abierto_ahora` ya calculado en el servidor** (`Restaurante::estadoHorario()`, soporta cierre pasada la medianoche), menú compacto con precios (menú completo para el restaurante que el cliente está viendo); y, si hay usuario autenticado, **sus últimos 5 pedidos** con estado (cliente, domiciliario o restaurante según su rol).
 - **Falla suave:** sin `GEMINI_API_KEY` en `.env`, o si la llamada falla, responde "El asistente no está disponible en este momento" — el resto de la app sigue funcionando igual (mismo patrón que `FcmSender`).
-- **Modelo:** usar `GEMINI_MODEL=gemini-flash-latest` (alias estable de Google). Modelos preview fijos como `gemini-3.6-flash` han devuelto 503 "high demand" en pruebas.
-- **Sin persistencia:** el historial de la conversación vive solo en memoria del navegador/app; no se guarda en base de datos.
-- **Web:** `resources/views/partials/chatbot-widget.blade.php` + `resources/js/chatbot.js` (Alpine.js).
+- **Modelo y respaldo:** `GEMINI_MODEL=gemini-flash-latest` es el principal. Si falla (503 saturado, 429 cuota, timeout) `GeminiService` prueba en cadena `gemini-3.6-flash → gemini-3.5-flash-lite → gemini-flash-lite-latest`. **La cuota gratuita de Google es por modelo y por día** (p. ej. 20 peticiones/día en `gemini-flash-latest`), por eso se encadenan varios: cada uno aporta su propio cupo. Un modelo que responde 429 se salta durante 10 min; los reintentos solo se hacen ante 5xx/timeout; el tope total es ~24 s por mensaje. Para producción con muchos usuarios conviene activar facturación en Google AI Studio.
+- **Caché:** una pregunta idéntica (mismo usuario/restaurante, sin historial, dentro del mismo minuto) se sirve 2 min desde caché para no gastar cuota.
+- **Memoria de conversación:** la web envía los últimos turnos en `historial` (opcional, máx. 10) para entender preguntas de seguimiento; la app móvil puede omitirlo. Nada se guarda en base de datos.
+- **API key:** viaja en el header `x-goog-api-key`, no en la URL, para que no aparezca en `laravel.log`.
+- **Web:** `resources/views/partials/chatbot-widget.blade.php` + `resources/js/chatbot.js` (Alpine.js), con botones de preguntas sugeridas. Tras cambiar el JS: `npm run build`.
 - **App móvil:** `ChatbotFab` en `app_movil/lib/features/shared/widgets/chatbot_flotante.dart`, agregado en los shells de cliente y domiciliario.
 
 ## 12. Base de datos

@@ -2,7 +2,18 @@
 
 Registro de actualizaciones subidas a este repositorio. Formato: fecha, resumen del cambio, archivos/áreas afectadas.
 
-## 2026-09-23 — Chatbot más resistente a la saturación de Gemini
+## 2026-09-23 — Chatbot "full": horarios, pedidos, memoria y más resistencia
+
+- **Horarios reales:** el bot conoce el horario semanal de cada restaurante y si está **abierto ahora** (calculado en el servidor con hora de Bogotá, `Restaurante::estadoHorario()`; soporta cierre pasada la medianoche). Responde "¿qué está abierto hasta las 8 pm?" sin inventar y separa los restaurantes que aún no publican horario.
+- **Más contexto:** dirección, teléfono, tiempo de entrega, calificaciones (promedio y total) y menú con precios de todos los restaurantes (menú completo del que el cliente está viendo).
+- **Pedidos del usuario:** con sesión iniciada, "¿cómo va mi pedido?" responde con sus últimos 5 pedidos y su estado (cliente, domiciliario o restaurante según su rol).
+- **Memoria de conversación** (`historial`, opcional) para preguntas de seguimiento, y **preguntas sugeridas** en el widget web.
+- **System prompt reescrito** (texto plano, sin Markdown, reglas de horarios/domicilio/pedidos, explicación de cómo funciona la app) y **movido a `resources/chatbot/system-prompt.md`**: antes vivía en `storage/app/`, que está en `.gitignore`, así que no llegaba a GitHub ni a un despliegue.
+- **Resistencia a fallos:** cadena de modelos de respaldo (la cuota gratuita de Google es por modelo y por día), reintentos solo ante 5xx/timeout, salto inmediato ante 429, tope de ~24 s por mensaje y caché de 2 min para preguntas idénticas.
+- La API key viaja por header (`x-goog-api-key`) y ya no queda escrita en `laravel.log` cuando hay errores.
+- Documentación actualizada: `MANUAL_PROGRAMADOR.md` (sección 11) y `MANUAL_USUARIO.md` (sección 7).
+
+### Detalle anterior del mismo día
 
 - `GeminiService` ahora reintenta ante 429/5xx o timeout y, si el modelo configurado sigue fallando, prueba un modelo de respaldo (`gemini-flash-lite-latest`) antes de mostrar "no disponible". Antes una sola respuesta 503 "high demand" de Google dejaba el asistente inutilizable.
 - La API key de Gemini se envía en el header `x-goog-api-key` en lugar de la URL, para que no quede escrita en `storage/logs/laravel.log` cuando hay errores.

@@ -9,9 +9,18 @@ Alpine.data('chatbotWidget', (restauranteId = null) => ({
         { rol: 'bot', texto: '¡Hola! Soy el asistente de Mi Plataforma. Pregúntame sobre restaurantes, menús o precios 🍔' },
     ],
 
-    async enviar() {
-        const texto = this.mensaje.trim();
+    sugerencias: [
+        '¿Qué restaurantes están abiertos ahora?',
+        '¿Cuáles tienen domicilio gratis?',
+        '¿Cómo va mi pedido?',
+    ],
+
+    async enviar(textoRapido = null) {
+        const texto = (textoRapido ?? this.mensaje).trim();
         if (!texto || this.cargando) return;
+
+        // Turnos previos (sin el saludo inicial) para que entienda preguntas de seguimiento.
+        const historial = this.mensajes.slice(1).slice(-8).map(m => ({ rol: m.rol, texto: m.texto }));
 
         this.mensajes.push({ rol: 'user', texto });
         this.mensaje = '';
@@ -29,6 +38,7 @@ Alpine.data('chatbotWidget', (restauranteId = null) => ({
                 body: JSON.stringify({
                     mensaje: texto,
                     restaurante_id: this.restauranteId || null,
+                    historial,
                 }),
             });
 

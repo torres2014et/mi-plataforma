@@ -49,6 +49,15 @@
                 </div>
             </template>
 
+            {{-- Sugerencias rápidas: solo mientras no hay conversación --}}
+            <div x-show="mensajes.length === 1" class="flex flex-wrap gap-2 pt-1">
+                <template x-for="s in sugerencias" :key="s">
+                    <button type="button" @click="enviar(s)"
+                            class="badge-orange !normal-case cursor-pointer hover:brightness-125 transition text-left"
+                            x-text="s"></button>
+                </template>
+            </div>
+
             <div x-show="cargando" class="flex justify-start">
                 <div class="bg-zinc-800 border border-white/[0.08] rounded-2xl px-3.5 py-2 text-sm text-zinc-400">
                     Escribiendo…
