@@ -84,10 +84,18 @@ class PedidoController extends Controller
         return back()->with('success', "Estado actualizado a «{$pedido->estadoLabel()}».");
     }
 
+    /**
+     * Respaldo manual: si nadie se auto-asignó el pedido desde la app/web del
+     * domiciliario, el restaurante puede asignarlo a mano. Esto **solo
+     * asigna** — ya no despacha el pedido a `en_camino` directamente; es el
+     * domiciliario quien dispara esa transición al pulsar "Salí a entregar"
+     * (ver `Domiciliario\DashboardController::salir`), igual que en la app.
+     */
     public function asignarDomiciliario(Request $request, Pedido $pedido)
     {
         abort_unless($pedido->restaurante_id === $this->restaurante()->id, 403);
         abort_unless($pedido->estado === 'en_preparacion', 422);
+        abort_unless(is_null($pedido->domiciliario_id), 422, 'Este pedido ya tiene un domiciliario asignado.');
 
         $request->validate([
             'domiciliario_id' => 'required|exists:users,id',
@@ -96,19 +104,13 @@ class PedidoController extends Controller
         $domiciliario = User::findOrFail($request->domiciliario_id);
         abort_unless($domiciliario->hasRole('domiciliario'), 422);
 
-        $pedido->update([
-            'domiciliario_id' => $domiciliario->id,
-            'estado'          => 'en_camino',
-        ]);
+        $pedido->update(['domiciliario_id' => $domiciliario->id]);
 
         broadcast(new PedidoActualizado($pedido))->toOthers();
 
         $pedido->load(['restaurante', 'cliente', 'items']);
         $domiciliario->notify(new PedidoAsignado($pedido));
 
-        // Email al cliente: su pedido está en camino
-        Mail::to($pedido->cliente->email)->queue(new PedidoEstadoActualizado($pedido));
-
-        return back()->with('success', "Pedido asignado a {$domiciliario->name} · en camino.");
+        return back()->with('success', "Asignaste el pedido a {$domiciliario->name}.");
     }
 }

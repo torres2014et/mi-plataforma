@@ -78,6 +78,8 @@ Route::middleware(['auth', 'role.redirect'])->group(function () {
         Route::post('/pedidos/{pedido}/aceptar', [DomiciliarioDashboardController::class, 'aceptar'])->name('pedidos.aceptar');
         // Fase 3 — el domiciliario sale a recoger (avisa al restaurante en vivo).
         Route::post('/pedidos/{pedido}/recoger', [DomiciliarioDashboardController::class, 'recoger'])->name('pedidos.recoger');
+        // El domiciliario ya recogió y sale a entregar (en_preparacion → en_camino).
+        Route::post('/pedidos/{pedido}/salir', [DomiciliarioDashboardController::class, 'salir'])->name('pedidos.salir');
         Route::post('/pedidos/{pedido}/confirmar', [DomiciliarioDashboardController::class, 'confirmarEntrega'])->name('pedidos.confirmar');
         // Fase 3 — GPS real: el domiciliario web emite su posición en camino.
         Route::post('/pedidos/{pedido}/ubicacion', [DomiciliarioDashboardController::class, 'ubicacion'])->name('pedidos.ubicacion');
