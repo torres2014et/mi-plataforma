@@ -138,7 +138,10 @@ En el dashboard de administrador:
 
 Disponible en la esquina inferior derecha, en web y app móvil, para los 4 roles. Tócalo o haz clic para abrir el chat.
 
-- Responde preguntas sobre **restaurantes, menús, precios y funcionamiento de la plataforma**, usando la información real del catálogo.
+- Responde preguntas sobre **restaurantes, menús, precios, horarios (incluso "¿qué está abierto ahora?" o "¿hasta qué hora atienden?"), costo y tiempo de domicilio, calificaciones y funcionamiento de la plataforma**, usando la información real del catálogo.
+- Si tienes pedidos, puedes preguntarle **"¿cómo va mi pedido?"** y te dice el estado de tus pedidos recientes.
+- Recuerda lo que hablaron dentro de la misma conversación, así puedes hacer preguntas de seguimiento ("¿y cuál tiene domicilio gratis?"). En la web, al abrir el chat verás preguntas sugeridas para empezar.
+- Puede recomendarte platos según lo que se te antoje (por ejemplo, "una pizza barata"). No crea ni cancela pedidos: eso se hace desde la app o la web.
 - Si preguntas algo fuera de ese tema, te lo dice amablemente y te redirige a lo que sí puede ayudarte.
 - La conversación **no se guarda** — si cierras el chat o recargas la página, el historial se pierde.
 - Si el asistente no está disponible en ese momento, el resto de la plataforma sigue funcionando con normalidad.
