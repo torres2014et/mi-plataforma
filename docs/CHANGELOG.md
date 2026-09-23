@@ -2,6 +2,11 @@
 
 Registro de actualizaciones subidas a este repositorio. Formato: fecha, resumen del cambio, archivos/áreas afectadas.
 
+## 2026-09-23 — Chatbot más resistente a la saturación de Gemini
+
+- `GeminiService` ahora reintenta ante 429/5xx o timeout y, si el modelo configurado sigue fallando, prueba un modelo de respaldo (`gemini-flash-lite-latest`) antes de mostrar "no disponible". Antes una sola respuesta 503 "high demand" de Google dejaba el asistente inutilizable.
+- La API key de Gemini se envía en el header `x-goog-api-key` en lugar de la URL, para que no quede escrita en `storage/logs/laravel.log` cuando hay errores.
+
 ## 2026-09-18 — Subida inicial a GitHub
 
 - Se inicializó el repositorio Git y se subió el proyecto completo a GitHub como repositorio público: [`torres2014et/mi-plataforma`](https://github.com/torres2014et/mi-plataforma).
