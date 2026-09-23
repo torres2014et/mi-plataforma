@@ -27,6 +27,7 @@
         </main>
     </div>
     @include('partials.fcm-web')
+    @include('partials.chatbot-widget')
     @stack('scripts')
 </body>
 </html>

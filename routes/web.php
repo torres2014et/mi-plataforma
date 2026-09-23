@@ -27,6 +27,11 @@ Route::middleware(['auth', 'role.redirect'])->group(function () {
     Route::post('/fcm-token', [\App\Http\Controllers\FcmTokenController::class, 'store'])->name('fcm-token.store');
     Route::delete('/fcm-token', [\App\Http\Controllers\FcmTokenController::class, 'destroy'])->name('fcm-token.destroy');
 
+    // Chatbot IA (Gemini 2.5 Flash) — disponible para cualquier rol autenticado.
+    Route::post('/chatbot/mensaje', [\App\Http\Controllers\ChatbotController::class, 'enviarMensaje'])
+        ->middleware('throttle:20,1')
+        ->name('chatbot.mensaje');
+
     // ── CLIENTE ──────────────────────────────────────────────
     Route::middleware('role:cliente')->prefix('cliente')->name('cliente.')->group(function () {
         Route::get('/dashboard', function () {
