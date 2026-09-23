@@ -21,7 +21,7 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 
                 {{-- Pedidos hoy --}}
-                <div class="stat-card bg-gradient-to-br from-gray-900 to-gray-800">
+                <div class="stat-card card-interactive bg-gradient-to-br from-gray-900 to-gray-800" data-reveal data-reveal-delay="0">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
                     <p class="text-white/50 text-xs font-semibold uppercase tracking-wide">Pedidos hoy</p>
                     <p class="text-3xl font-black text-white mt-1">{{ $pedidosHoy }}</p>
@@ -35,7 +35,7 @@
                 </div>
 
                 {{-- Ingresos hoy --}}
-                <div class="stat-card bg-gradient-to-br from-brand-600 to-brand-800">
+                <div class="stat-card card-interactive bg-gradient-to-br from-brand-600 to-brand-800" data-reveal data-reveal-delay="60">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
                     <p class="text-white/60 text-xs font-semibold uppercase tracking-wide">Ingresos hoy</p>
                     <p class="text-3xl font-black text-white mt-1">${{ number_format($ingresosHoy, 0, ',', '.') }}</p>
@@ -43,7 +43,7 @@
                 </div>
 
                 {{-- Ingresos del mes --}}
-                <div class="stat-card bg-gradient-to-br from-emerald-700 to-emerald-900">
+                <div class="stat-card card-interactive bg-gradient-to-br from-emerald-700 to-emerald-900" data-reveal data-reveal-delay="120">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
                     <p class="text-white/60 text-xs font-semibold uppercase tracking-wide">Ingresos del mes</p>
                     <p class="text-3xl font-black text-white mt-1">${{ number_format($ingresosMes, 0, ',', '.') }}</p>
@@ -51,7 +51,7 @@
                 </div>
 
                 {{-- Productos activos --}}
-                <div class="stat-card bg-gradient-to-br from-violet-700 to-violet-900">
+                <div class="stat-card card-interactive bg-gradient-to-br from-violet-700 to-violet-900" data-reveal data-reveal-delay="180">
                     <div class="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
                     <p class="text-white/60 text-xs font-semibold uppercase tracking-wide">Productos activos</p>
                     <p class="text-3xl font-black text-white mt-1">{{ $productosActivos }}</p>

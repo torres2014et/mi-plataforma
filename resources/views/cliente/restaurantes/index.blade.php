@@ -133,7 +133,7 @@
                            x-transition:leave-end="opacity-0 scale-95"
                            style="animation-delay: {{ $delay }}ms"
                            @animationend="$el.classList.remove('menu-reveal')"
-                           class="card overflow-hidden hover:-translate-y-1 group menu-reveal">
+                           class="card-interactive overflow-hidden hover:-translate-y-1 group menu-reveal">
 
                             <div class="relative h-44 overflow-hidden bg-zinc-800">
                                 @if($restaurante->imagen)

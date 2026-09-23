@@ -1,11 +1,13 @@
-<nav x-data="{ open: false }" class="bg-gray-950 border-b border-white/5 sticky top-0 z-40">
+<nav x-data="{ open: false, scrolled: false }" @scroll.window="scrolled = window.scrollY > 24"
+     :class="scrolled ? 'bg-gray-950/85 backdrop-blur-md border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.35)]' : 'bg-gray-950 border-white/5'"
+     class="border-b sticky top-0 z-40 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
 
             {{-- Logo + Nav links --}}
             <div class="flex items-center gap-8">
                 <a href="{{ route('welcome') }}" class="flex items-center gap-2.5 shrink-0 group">
-                    <x-application-logo class="w-8 h-8 transition-transform group-hover:scale-110 duration-300" />
+                    <x-application-logo class="w-8 h-8 rounded-xl transition-transform group-hover:scale-110 duration-300 animate-pulse-glow" />
                     <div class="hidden sm:block">
                         <p class="text-white font-black text-base leading-none tracking-tight">Mi Plataforma</p>
                         <p class="text-brand-500 text-[9px] tracking-widest font-bold mt-0.5">UBATÉ · DELIVERY</p>
