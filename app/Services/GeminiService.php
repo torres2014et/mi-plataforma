@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Restaurante;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\Log;
  */
 class GeminiService
 {
+    private const MODELO_RESPALDO = 'gemini-flash-lite-latest';
+
     private const MENSAJE_NO_DISPONIBLE = 'El asistente no está disponible en este momento. Intenta de nuevo más tarde.';
 
     public function responder(string $mensaje, ?int $restauranteId = null): string
@@ -37,32 +41,54 @@ class GeminiService
         return $respuesta ?? self::MENSAJE_NO_DISPONIBLE;
     }
 
+    /**
+     * Gemini devuelve 503 "high demand" o se queda colgado de forma intermitente,
+     * así que se prueba el modelo configurado y, si falla, un modelo de respaldo.
+     * Cada modelo se reintenta una vez ante 429/5xx o timeout.
+     */
     private function llamarGemini(string $apiKey, string $systemInstruction, string $mensaje): ?string
     {
-        $model = config('services.gemini.model', 'gemini-2.5-flash');
+        $principal = config('services.gemini.model', 'gemini-flash-latest');
+        $modelos = array_values(array_unique([$principal, self::MODELO_RESPALDO]));
 
+        foreach ($modelos as $model) {
+            $texto = $this->llamarModelo($apiKey, $model, $systemInstruction, $mensaje);
+            if ($texto !== null) {
+                return $texto;
+            }
+        }
+
+        return null;
+    }
+
+    private function llamarModelo(string $apiKey, string $model, string $systemInstruction, string $mensaje): ?string
+    {
         try {
-            $res = Http::timeout(15)->post(
-                "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key={$apiKey}",
-                [
-                    'system_instruction' => [
-                        'parts' => [['text' => $systemInstruction]],
-                    ],
-                    'contents' => [
-                        ['role' => 'user', 'parts' => [['text' => $mensaje]]],
-                    ],
-                ]
-            );
+            $res = Http::timeout(12)
+                ->withHeaders(['x-goog-api-key' => $apiKey]) // header, no query: la key no queda en logs de errores
+                ->retry(2, 500, fn ($e) => $e instanceof ConnectionException
+                    || ($e instanceof RequestException && in_array($e->response->status(), [429, 500, 502, 503, 504])), throw: false)
+                ->post(
+                    "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent",
+                    [
+                        'system_instruction' => [
+                            'parts' => [['text' => $systemInstruction]],
+                        ],
+                        'contents' => [
+                            ['role' => 'user', 'parts' => [['text' => $mensaje]]],
+                        ],
+                    ]
+                );
 
             if ($res->failed()) {
-                Log::warning('Gemini: llamada falló', ['status' => $res->status(), 'body' => $res->body()]);
+                Log::warning('Gemini: llamada falló', ['model' => $model, 'status' => $res->status(), 'body' => $res->body()]);
                 return null;
             }
 
             $texto = $res->json('candidates.0.content.parts.0.text');
             return is_string($texto) ? trim($texto) : null;
         } catch (\Throwable $e) {
-            Log::warning('Gemini: excepción al llamar: '.$e->getMessage());
+            Log::warning("Gemini: excepción al llamar ({$model}): ".$e->getMessage());
             return null;
         }
     }
