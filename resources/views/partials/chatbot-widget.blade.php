@@ -66,7 +66,7 @@
         </div>
 
         {{-- Input --}}
-        <form @submit.prevent="enviar" class="flex items-center gap-2 px-3 py-3 border-t border-white/[0.08]">
+        <form @submit.prevent="enviar()" class="flex items-center gap-2 px-3 py-3 border-t border-white/[0.08]">
             <input
                 type="text"
                 x-model="mensaje"
