@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Pedido;
 use App\Models\Restaurante;
 use App\Models\User;
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -111,14 +110,16 @@ class GeminiService
         }
         $contents[] = ['role' => 'user', 'parts' => [['text' => $mensaje]]];
 
-        $timeout = (int) max(3, min(10, floor($limite - microtime(true))));
+        $timeout = (int) max(3, min(5, floor($limite - microtime(true))));
 
         try {
             $res = Http::timeout($timeout)
                 ->withHeaders(['x-goog-api-key' => $apiKey]) // header, no query: la key no queda en logs de errores
-                // Reintenta solo ante 5xx/timeout. Un 429 es cuota agotada: reintentar no sirve, mejor el siguiente modelo.
-                ->retry(2, 400, fn ($e) => $e instanceof ConnectionException
-                    || ($e instanceof RequestException && $e->response->status() >= 500), throw: false)
+                // Reintenta solo ante 5xx. Un timeout/ConnectionException no se reintenta aquí: ya hay
+                // presupuesto de tiempo ajustado (ver $limite) y reintentar el mismo modelo colgado solo
+                // quema el presupuesto completo sin llegar a probar el resto de la cadena de respaldo.
+                // Un 429 es cuota agotada: reintentar no sirve, mejor el siguiente modelo.
+                ->retry(2, 400, fn ($e) => $e instanceof RequestException && $e->response->status() >= 500, throw: false)
                 ->post(
                     "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent",
                     [
